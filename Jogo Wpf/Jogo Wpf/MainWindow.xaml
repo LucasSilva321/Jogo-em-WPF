@@ -10,29 +10,37 @@
         <Storyboard x:Key="UpDown">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="imgObstaculoUp">
                 <EasingDoubleKeyFrame KeyTime="0" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1089"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1089"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="RightLeft">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="imgObstaculoRight">
                 <EasingDoubleKeyFrame KeyTime="0" Value="-6"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-1440"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-1440"/>
             </DoubleAnimationUsingKeyFrames>
             <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="imgObstaculoRight">
                 <EasingPointKeyFrame KeyTime="0" Value="0.5,0.5"/>
-                <EasingPointKeyFrame KeyTime="0:0:1" Value="-2.154,0.546"/>
+                <EasingPointKeyFrame KeyTime="0:0:2" Value="-2.154,0.546"/>
             </PointAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="LeftRight">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="imgObstaculoLeft">
                 <EasingDoubleKeyFrame KeyTime="0" Value="6"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1428"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1428"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Pular">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="imgPersonagem">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-216"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             
+
         </EventTrigger>
     </Window.Triggers>
     <Grid>
@@ -68,7 +76,16 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="imgPersonagem" HorizontalAlignment="Left" Height="130" Margin="356,442,0,0" VerticalAlignment="Top" Width="134" Source="Imagens/parado.png" Stretch="Fill" Panel.ZIndex="2"/>
+        <Image x:Name="imgPersonagem" HorizontalAlignment="Left" Height="130" Margin="356,442,0,0" VerticalAlignment="Top" Width="134" Source="Imagens/parado.png" Stretch="Fill" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
 
     </Grid>
 </Window>

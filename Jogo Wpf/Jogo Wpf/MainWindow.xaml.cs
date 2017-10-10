@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Jogo_Wpf
 {
@@ -22,8 +23,11 @@ namespace Jogo_Wpf
     public partial class MainWindow : Window
     {
         int i = 0;
-        Storyboard UpDown, LeftRight, RightLeft;
+        Storyboard UpDown, LeftRight, RightLeft, Pular;
         Random r = new Random();
+        bool podePular = true;
+        DispatcherTimer timer;
+        double marginTopPersonagem, gravidade = -1.5;
 
         public MainWindow()
         {
@@ -37,12 +41,42 @@ namespace Jogo_Wpf
             UpDown = FindResource("UpDown") as Storyboard;
             LeftRight = FindResource("LeftRight") as Storyboard;
             RightLeft = FindResource("RightLeft") as Storyboard;
+            Pular = FindResource("Pular") as Storyboard;
 
             UpDown.Completed += UpDown_Completed;
             LeftRight.Completed += LeftRight_Completed;
             RightLeft.Completed += RightLeft_Completed;
+            Pular.Completed += Pular_Completed;
+
+            timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
+            marginTopPersonagem = imgPersonagem.Margin.Top;
+           
 
             MoverObstaculo();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (!podePular)
+            {
+                imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left, imgPersonagem.Margin.Top + (imgPersonagem.Height * gravidade), 0, 0);
+                gravidade += 0.5;
+                if(imgPersonagem.Margin.Top >= marginTopPersonagem)
+                {
+                    imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left,marginTopPersonagem, 0, 0);
+                    podePular = true;
+                    gravidade = -1.5;
+                }
+            }
+        }
+
+        private void Pular_Completed(object sender, EventArgs e)
+        {
+            podePular = true;
         }
 
         private void RightLeft_Completed(object sender, EventArgs e)
@@ -88,7 +122,7 @@ namespace Jogo_Wpf
                 imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left - 10, imgObstaculoUp.Margin.Top, 0, 0);
                 imgBackground1.Margin = new Thickness(imgBackground1.Margin.Left - 10, 0, 0, 0);
                 imgBackground2.Margin = new Thickness(imgBackground2.Margin.Left - 10, 0, 0, 0);
-                imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left+5, imgPersonagem.Margin.Top, 0, 0);
+                imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left+15, imgPersonagem.Margin.Top, 0, 0);
                 if (imgBackground1.Margin.Left <= -imgBackground1.Width)
                     imgBackground1.Margin = new Thickness(imgBackground1.Width - 50, 0, 0, 0);
                 if (imgBackground2.Margin.Left <= -imgBackground2.Width)
@@ -104,10 +138,10 @@ namespace Jogo_Wpf
                 imgPersonagem.RenderTransform = x;
 
             }
-            if (e.Key == Key.Left)
+          if (e.Key == Key.Left)
             {
                 imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left + 10, imgObstaculoUp.Margin.Top, 0, 0);
-                imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left - 5, imgPersonagem.Margin.Top, 0, 0);
+                imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left - 15, imgPersonagem.Margin.Top, 0, 0);
                 imgBackground1.Margin = new Thickness(imgBackground1.Margin.Left + 10, 0, 0, 0);
                 imgBackground2.Margin = new Thickness(imgBackground2.Margin.Left + 10, 0, 0, 0);
                 
@@ -121,11 +155,19 @@ namespace Jogo_Wpf
                     imgBackground2.Margin = new Thickness(-imgBackground2.Width + 50, 0, 0, 0);
                 
                 BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (i) + ".png", UriKind.RelativeOrAbsolute));
-                imgPersonagem.Source = img;
+               imgPersonagem.Source = img;
                 i = (i + 1) % 9;
                 ScaleTransform x = new ScaleTransform(-1, 1);
                 imgPersonagem.RenderTransform = x;
 
+            }
+
+           if(e.Key == Key.Up && podePular)
+            {
+                podePular = false;
+                BitmapImage img = new BitmapImage(new Uri("Imagens/parado.png", UriKind.RelativeOrAbsolute));
+              //  imgPersonagem.Source = img;
+               // Pular.Begin();
             }
         }
     }
