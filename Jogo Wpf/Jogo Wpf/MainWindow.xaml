@@ -1,0 +1,36 @@
+﻿<Window x:Class="Jogo_Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Jogo_Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="900" KeyDown="Window_KeyDown">
+    <Grid>
+        <Image x:Name="imgBackground2" HorizontalAlignment="Left" Height="669" VerticalAlignment="Top" Width="892" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill" Margin="-891,0,0,0"/>
+        <Image x:Name="imgBackground1" HorizontalAlignment="Left" Height="669" VerticalAlignment="Top" Width="892" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill"/>
+        <Image x:Name="imgObstaculoRight" HorizontalAlignment="Left" Height="130" Margin="965,442,-353,0" VerticalAlignment="Top" Width="280" Source="Imagens/Bullet_Bill_Artwork_-_Mario_Kart_Wii.png" Stretch="Fill"/>
+        <Image x:Name="imgObstaculoLeft" HorizontalAlignment="Left" Height="130" Margin="-455,442,0,0" VerticalAlignment="Top" Width="280" Source="Imagens/Bullet_Bill_Artwork_-_Mario_Kart_Wii.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                    <SkewTransform AngleY="0" AngleX="0"/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="imgObstaculoUp" HorizontalAlignment="Left" Height="350" Margin="343,-380,0,0" VerticalAlignment="Top" Width="312" Source="Imagens/Bullet_Bill_Artwork_-_Mario_Kart_Wii.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1" ScaleX="1"/>
+                    <SkewTransform AngleY="0" AngleX="0"/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="imgPersonagem" HorizontalAlignment="Left" Height="130" Margin="356,442,0,0" VerticalAlignment="Top" Width="134" Source="Imagens/parado.png" Stretch="Fill" Panel.ZIndex="2"/>
+
+    </Grid>
+</Window>
