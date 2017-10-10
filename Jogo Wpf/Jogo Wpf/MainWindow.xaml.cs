@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -21,14 +22,61 @@ namespace Jogo_Wpf
     public partial class MainWindow : Window
     {
         int i = 0;
+        Storyboard UpDown, LeftRight, RightLeft;
+        Random r = new Random();
 
         public MainWindow()
         {
             InitializeComponent();
+
             imgBackground1.Width = this.Width;
             imgBackground2.Width = this.Width;
             imgBackground1.Margin = new Thickness(0, 0, 0, 0);
             imgBackground2.Margin = new Thickness(-imgBackground2.Width, 0, 0, 0);
+
+            UpDown = FindResource("UpDown") as Storyboard;
+            LeftRight = FindResource("LeftRight") as Storyboard;
+            RightLeft = FindResource("RightLeft") as Storyboard;
+
+            UpDown.Completed += UpDown_Completed;
+            LeftRight.Completed += LeftRight_Completed;
+            RightLeft.Completed += RightLeft_Completed;
+
+            MoverObstaculo();
+        }
+
+        private void RightLeft_Completed(object sender, EventArgs e)
+        {
+            MoverObstaculo();
+        }
+
+        private void LeftRight_Completed(object sender, EventArgs e)
+        {
+            MoverObstaculo();
+        }
+
+        private void UpDown_Completed(object sender, EventArgs e)
+        {
+            MoverObstaculo();
+        }
+
+        void MoverObstaculo()
+        {
+            int acao = r.Next(0, 3);
+            double left = r.Next(0, (int)this.Width - (int)imgObstaculoUp.Width);
+            if(acao == 0)
+            {
+                imgObstaculoUp.Margin = new Thickness(left, imgObstaculoUp.Margin.Top, 0, 0);
+                UpDown.Begin();
+            }
+            if(acao == 1)
+            {
+                RightLeft.Begin();
+            }
+            if(acao == 2)
+            {
+                LeftRight.Begin();
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
