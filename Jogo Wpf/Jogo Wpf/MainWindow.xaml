@@ -5,48 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Jogo_Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="900" KeyDown="Window_KeyDown">
+        Title="MainWindow" Height="700" Width="1000" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp">
     <Window.Resources>
-        <Storyboard x:Key="UpDown">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="imgObstaculoUp">
-                <EasingDoubleKeyFrame KeyTime="0" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1089"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="RightLeft">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="imgObstaculoRight">
-                <EasingDoubleKeyFrame KeyTime="0" Value="-6"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-1440"/>
-            </DoubleAnimationUsingKeyFrames>
-            <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="imgObstaculoRight">
-                <EasingPointKeyFrame KeyTime="0" Value="0.5,0.5"/>
-                <EasingPointKeyFrame KeyTime="0:0:2" Value="-2.154,0.546"/>
-            </PointAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="LeftRight">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="imgObstaculoLeft">
-                <EasingDoubleKeyFrame KeyTime="0" Value="6"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1428"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="Pular">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="imgPersonagem">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-216"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
+
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            
+
 
         </EventTrigger>
     </Window.Triggers>
     <Grid>
-        <Image x:Name="imgBackground2" HorizontalAlignment="Left" Height="669" VerticalAlignment="Top" Width="892" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill" Margin="-891,0,0,0"/>
-        <Image x:Name="imgBackground1" HorizontalAlignment="Left" Height="669" VerticalAlignment="Top" Width="892" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill"/>
-        <Image x:Name="imgObstaculoRight" HorizontalAlignment="Left" Height="130" Margin="965,442,-353,0" VerticalAlignment="Top" Width="280" Source="Imagens/Bullet_Bill_Artwork_-_Mario_Kart_Wii.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="imgBackground2" HorizontalAlignment="Left" Height="669" VerticalAlignment="Top" Width="992" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill" Margin="-997,0,0,0"/>
+        <Image x:Name="imgBackground1" HorizontalAlignment="Left" Height="669" VerticalAlignment="Top" Width="992" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill"/>
+        <Image x:Name="imgObstaculoRight" HorizontalAlignment="Left" Height="130" Margin="1035,442,-374,0" VerticalAlignment="Top" Width="280" Source="Imagens/Bullet_Bill_Artwork_-_Mario_Kart_Wii.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -86,6 +58,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="835,50,0,0" VerticalAlignment="Top" Width="115" Height="30" Click="button_Click"/>
 
     </Grid>
 </Window>
