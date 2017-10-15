@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,6 +35,8 @@ namespace Jogo_Wpf
         bool moverDireita, moverEsquerda;
         int pontuacao = 0, recorde = 0;
         bool novoRecorde;
+        SoundPlayer somdeFundo;
+         
 
 
 
@@ -58,13 +62,14 @@ namespace Jogo_Wpf
 
             if (Resources["Recorde"] != null)
                 recorde = (int)Resources["Recorde"];
-            
 
+            somdeFundo = new SoundPlayer("../../Robotnik.wav");
 
         }
 
         void IniciarJogo()
         {
+            somdeFundo.PlayLooping();
             novoRecorde = false;
             pontuacao = 0;
             lblRecord.Content = "Record: "+ recorde;
@@ -213,6 +218,7 @@ namespace Jogo_Wpf
                 lblFimDeJogo.Content = "Score: " + pontuacao;
 
             lblFimDeJogo.Visibility = Visibility.Visible;
+            somdeFundo.Stop();
         }
 
         void MarcarPontuacao()
@@ -278,6 +284,9 @@ namespace Jogo_Wpf
             }
         }
 
+        
+        
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Right)
@@ -294,8 +303,7 @@ namespace Jogo_Wpf
             {
                 podePular = false;
                 BitmapImage img = new BitmapImage(new Uri("Imagens/parado.png", UriKind.RelativeOrAbsolute));
-                //  imgPersonagem.Source = img;
-
+                //  imgPersonagem.Source = img;             
             }
         }
     }

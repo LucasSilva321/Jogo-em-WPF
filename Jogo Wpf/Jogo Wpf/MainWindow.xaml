@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Jogo_Wpf"
         mc:Ignorable="d"
-        Title="MegaMarioSonico" Height="696" Width="1000" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" ResizeMode="NoResize">
+        Title="https://github.com/LucasSilva321" Height="696" Width="1000" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" ResizeMode="NoResize">
     <Window.Resources>
 
     </Window.Resources>
@@ -28,7 +28,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="imgObstaculoRight" HorizontalAlignment="Left" Height="90" Margin="1035,462,-266,0" VerticalAlignment="Top" Width="225" Source="Imagens/Bullet_Bill_Artwork_-_Mario_Kart_Wii.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="imgObstaculoRight" HorizontalAlignment="Left" Height="115" Margin="1035,438,-231,0" VerticalAlignment="Top" Width="190" Source="Imagens/Dr-Robotnik.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -38,7 +38,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="imgObstaculoLeft" HorizontalAlignment="Left" Height="90" Margin="-450,457,0,0" VerticalAlignment="Top" Width="225" Source="Imagens/Bullet_Bill_Artwork_-_Mario_Kart_Wii.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="imgObstaculoLeft" HorizontalAlignment="Left" Height="115" Margin="-445,435,0,0" VerticalAlignment="Top" Width="190" Source="Imagens/Dr-Robotnik.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1" ScaleX="-1"/>
@@ -48,15 +48,8 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="imgObstaculoUp" HorizontalAlignment="Left" Height="350" Margin="343,-380,0,0" VerticalAlignment="Top" Width="312" Source="Imagens/Bullet_Bill_Artwork_-_Mario_Kart_Wii.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="1" ScaleX="1"/>
-                    <SkewTransform AngleY="0" AngleX="0"/>
-                    <RotateTransform Angle="-90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
+        <Image x:Name="imgObstaculoUp" HorizontalAlignment="Left" Height="330" Margin="220,-360,0,0" VerticalAlignment="Top" Width="460" Source="Imagens/Dr-Robotnik.png" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
+
         </Image>
         <Button x:Name="button" Content="Jogar" HorizontalAlignment="Left" Margin="374,327,0,0" VerticalAlignment="Top" Width="255" Height="63" Click="button_Click" Foreground="White" FontSize="40" FontWeight="Bold">
             <Button.Background>
@@ -67,8 +60,8 @@
             </Button.Background>
         </Button>
         <Label x:Name="lblFimDeJogo" Content="Label" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" FontSize="50" Width="984" Foreground="White" FontWeight="SemiBold" HorizontalContentAlignment="Center" FontStyle="Italic"/>
-        <Label x:Name="lblScore" Content="Score:" HorizontalAlignment="Left" Margin="257,14,0,0" VerticalAlignment="Top" FontSize="38" Width="305" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
-        <Label x:Name="lblRecord" Content="Record:" HorizontalAlignment="Left" Margin="590,14,0,0" VerticalAlignment="Top" FontSize="38" Width="394" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
+        <Label x:Name="lblScore" Content="Score:" HorizontalAlignment="Left" Margin="246,14,0,0" VerticalAlignment="Top" FontSize="38" Width="323" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
+        <Label x:Name="lblRecord" Content="Record:" HorizontalAlignment="Left" Margin="573,14,0,0" VerticalAlignment="Top" FontSize="38" Width="399" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
 
     </Grid>
 </Window>
