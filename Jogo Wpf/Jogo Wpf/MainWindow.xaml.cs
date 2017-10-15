@@ -31,7 +31,9 @@ namespace Jogo_Wpf
         int acao;
         Thickness posObstaculoUp, posObstaculoRight, posObstaculLeft;
         bool moverDireita, moverEsquerda;
-        
+        int pontuacao = 0, recorde = 0;
+        bool novoRecorde;
+
 
 
         public MainWindow()
@@ -52,21 +54,36 @@ namespace Jogo_Wpf
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             timer.Tick += Timer_Tick;
 
+            lblFimDeJogo.Visibility = Visibility.Hidden;
+
+            if (Resources["Recorde"] != null)
+                recorde = (int)Resources["Recorde"];
+            
+
 
         }
 
-        void InicairJogo()
+        void IniciarJogo()
         {
+            novoRecorde = false;
+            pontuacao = 0;
+            lblRecord.Content = "Record: "+ recorde;
+            lblScore.Content = "Score: 0";
+            
+
             imgPersonagem.RenderTransform = new ScaleTransform(1, 1);
             imgPersonagem.Width = imgPersonagem.Height = 130;
-            imgPersonagem.Margin = new Thickness(this.Width/2, marginTopPersonagem, 0, 0);
+            imgPersonagem.Margin = new Thickness(this.Width / 2, marginTopPersonagem, 0, 0);
 
-            imgObstaculoUp.Margin  = posObstaculoUp;
-            imgObstaculoRight.Margin  = posObstaculoRight;
-            imgObstaculoLeft.Margin  = posObstaculLeft;
+            imgObstaculoUp.Margin = posObstaculoUp;
+            imgObstaculoRight.Margin = posObstaculoRight;
+            imgObstaculoLeft.Margin = posObstaculLeft;
 
             moverDireita = moverEsquerda = false;
             acao = r.Next(0, 3);
+
+            button.Visibility = Visibility.Hidden;
+            lblFimDeJogo.Visibility = Visibility.Hidden;
 
             timer.Start();
             MoverObstaculo();
@@ -125,7 +142,7 @@ namespace Jogo_Wpf
             if (!podePular)
             {
                 imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left, imgPersonagem.Margin.Top + (imgPersonagem.Height * gravidade), 0, 0);
-                gravidade += 0.4;
+                gravidade += 0.5;
                 if (imgPersonagem.Margin.Top >= marginTopPersonagem)
                 {
                     imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left, marginTopPersonagem, 0, 0);
@@ -140,15 +157,14 @@ namespace Jogo_Wpf
             MoverPersonagem();
             MoverObstaculo();
             VerificarColisao();
-            
+
         }
 
-       
+
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            InicairJogo();
-            button.Visibility = Visibility.Hidden;
+            IniciarJogo();
         }
 
         void VerificarColisao()
@@ -161,14 +177,14 @@ namespace Jogo_Wpf
             if (personagemTop <= imgObstaculoUp.Margin.Top + imgObstaculoUp.Height && personagemBottom >= imgObstaculoUp.Margin.Top)
             {
                 if (personagemLeft <= imgObstaculoUp.Margin.Left + imgObstaculoUp.Width && personagemRight >= imgObstaculoUp.Margin.Left)
-                {                  
+                {
                     FinalizarJogo();
                 }
             }
 
-            if(personagemBottom >= imgObstaculoRight.Margin.Top)
+            if (personagemBottom >= imgObstaculoRight.Margin.Top)
             {
-                if(personagemLeft <= imgObstaculoRight.Margin.Left + imgObstaculoRight.Width && personagemRight >= imgObstaculoRight.Margin.Left)
+                if (personagemLeft <= imgObstaculoRight.Margin.Left + imgObstaculoRight.Width && personagemRight >= imgObstaculoRight.Margin.Left)
                 {
                     FinalizarJogo();
                 }
@@ -177,6 +193,8 @@ namespace Jogo_Wpf
                     FinalizarJogo();
                 }
             }
+
+            
         }
 
         void FinalizarJogo()
@@ -186,13 +204,35 @@ namespace Jogo_Wpf
             imgPersonagem.RenderTransform = new ScaleTransform(1, -1);
             timer.Stop();
             button.Visibility = Visibility.Visible;
+            Resources["Recorde"] = recorde;
+            
+
+            if (novoRecorde)
+                lblFimDeJogo.Content = "New Record: " + recorde;
+            else
+                lblFimDeJogo.Content = "Score: " + pontuacao;
+
+            lblFimDeJogo.Visibility = Visibility.Visible;
         }
 
-        
+        void MarcarPontuacao()
+        {
+            pontuacao += 100;
+            if (recorde <= pontuacao)
+            {
+                novoRecorde = true;
+                recorde = pontuacao;
+            }
+            lblRecord.Content = "Record: " + recorde;
+            lblScore.Content = "Score: " + pontuacao;
+
+        }
+
+
 
         void MoverObstaculo()
-        {              
-            if(acao == 0)
+        {
+            if (acao == 0)
             {
                 if (posicionarObstaculoUp)
                 {
@@ -200,35 +240,38 @@ namespace Jogo_Wpf
                     imgObstaculoUp.Margin = new Thickness(left, imgObstaculoUp.Margin.Top, 0, 0);
                     posicionarObstaculoUp = false;
                 }
-                if(imgObstaculoUp.Margin.Top > this.Height)
+                if (imgObstaculoUp.Margin.Top > this.Height)
                 {
                     imgObstaculoUp.Margin = posObstaculoUp;
                     acao = r.Next(0, 3);
+                    MarcarPontuacao();
                     posicionarObstaculoUp = true;
                     return;
                 }
                 imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left, imgObstaculoUp.Margin.Top + 40, 0, 0);
 
-                
+
             }
-            if(acao == 1)
+            if (acao == 1)
             {
-              
-              if(imgObstaculoRight.Margin.Left + imgObstaculoRight.Width <= 0)
+
+                if (imgObstaculoRight.Margin.Left + imgObstaculoRight.Width <= 0)
                 {
                     imgObstaculoRight.Margin = posObstaculoRight;
                     acao = r.Next(0, 3);
+                    MarcarPontuacao();
                     return;
                 }
-              imgObstaculoRight.Margin = new Thickness(imgObstaculoRight.Margin.Left - 80, imgObstaculoRight.Margin.Top, 0, 0);
+                imgObstaculoRight.Margin = new Thickness(imgObstaculoRight.Margin.Left - 80, imgObstaculoRight.Margin.Top, 0, 0);
             }
-            if(acao == 2)
+            if (acao == 2)
             {
-                
-                if (imgObstaculoLeft.Margin.Left  >= this.Width)
+
+                if (imgObstaculoLeft.Margin.Left >= this.Width)
                 {
                     imgObstaculoLeft.Margin = posObstaculLeft;
                     acao = r.Next(0, 3);
+                    MarcarPontuacao();
                     return;
                 }
                 imgObstaculoLeft.Margin = new Thickness(imgObstaculoLeft.Margin.Left + 80, imgObstaculoLeft.Margin.Top, 0, 0);
@@ -241,18 +284,18 @@ namespace Jogo_Wpf
             {
                 moverDireita = true;
             }
-          if (e.Key == Key.Left)
+            if (e.Key == Key.Left)
             {
                 moverEsquerda = true;
 
             }
 
-           if(e.Key == Key.Up && podePular)
+            if (e.Key == Key.Up && podePular)
             {
                 podePular = false;
                 BitmapImage img = new BitmapImage(new Uri("Imagens/parado.png", UriKind.RelativeOrAbsolute));
-              //  imgPersonagem.Source = img;
-               
+                //  imgPersonagem.Source = img;
+
             }
         }
     }
