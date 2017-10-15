@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
@@ -27,7 +26,7 @@ namespace Jogo_Wpf
         int pontuacao = 0, recorde = 0;
         bool novoRecorde;
         SoundPlayer somdeFundo;
-         
+
 
 
 
@@ -51,24 +50,20 @@ namespace Jogo_Wpf
 
             lblFimDeJogo.Visibility = Visibility.Hidden;
 
-            if (Resources["Recorde"] != null)
-                recorde = (int)Resources["Recorde"];
-
             somdeFundo = new SoundPlayer();
 
-            //              Comentario para  testes
             //somdeFundo.SoundLocation = "Audio/Robotnik.wav";
 
         }
 
         void IniciarJogo()
         {
-            //somdeFundo.PlayLooping();
+            // somdeFundo.PlayLooping();
             novoRecorde = false;
             pontuacao = 0;
-            lblRecord.Content = "Record: "+ recorde;
+            lblRecord.Content = "Record: " + recorde;
             lblScore.Content = "Score: 0";
-            
+
 
             imgPersonagem.RenderTransform = new ScaleTransform(1, 1);
             imgPersonagem.Width = imgPersonagem.Height = 130;
@@ -193,7 +188,7 @@ namespace Jogo_Wpf
                 }
             }
 
-            
+
         }
 
         void FinalizarJogo()
@@ -201,8 +196,8 @@ namespace Jogo_Wpf
             imgPersonagem.RenderTransform = new ScaleTransform(1, -1);
             timer.Stop();
             button.Visibility = Visibility.Visible;
-            Resources["Recorde"] = recorde;
-            
+
+
 
             if (novoRecorde)
                 lblFimDeJogo.Content = "New Record: " + recorde;
@@ -276,8 +271,8 @@ namespace Jogo_Wpf
             }
         }
 
-        
-        
+
+
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
