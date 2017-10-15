@@ -56,13 +56,14 @@ namespace Jogo_Wpf
 
             somdeFundo = new SoundPlayer();
 
-            somdeFundo.SoundLocation = "Audio/Robotnik.wav";
+            //              Comentario para  testes
+            //somdeFundo.SoundLocation = "Audio/Robotnik.wav";
 
         }
 
         void IniciarJogo()
         {
-            somdeFundo.PlayLooping();
+            //somdeFundo.PlayLooping();
             novoRecorde = false;
             pontuacao = 0;
             lblRecord.Content = "Record: "+ recorde;
@@ -197,8 +198,6 @@ namespace Jogo_Wpf
 
         void FinalizarJogo()
         {
-            //imgPersonagem.Width += 50;
-            // imgPersonagem.Height += 50;
             imgPersonagem.RenderTransform = new ScaleTransform(1, -1);
             timer.Stop();
             button.Visibility = Visibility.Visible;
