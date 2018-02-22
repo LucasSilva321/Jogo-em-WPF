@@ -52,13 +52,25 @@ namespace Jogo_Wpf
 
             somdeFundo = new SoundPlayer();
 
-            //somdeFundo.SoundLocation = "Audio/Robotnik.wav";
+            
 
         }
 
         void IniciarJogo()
         {
-            // somdeFundo.PlayLooping();
+            //Ao criar o executavel, o arquivo de audio muda a sua localização
+            try
+            {
+                somdeFundo.SoundLocation = "Audio/Robotnik.wav";
+                somdeFundo.PlayLooping();
+            }
+            catch 
+            {
+
+                somdeFundo.SoundLocation = "Robotnik.wav";
+                somdeFundo.PlayLooping();
+            }
+           
             novoRecorde = false;
             pontuacao = 0;
             lblRecord.Content = "Record: " + recorde;
