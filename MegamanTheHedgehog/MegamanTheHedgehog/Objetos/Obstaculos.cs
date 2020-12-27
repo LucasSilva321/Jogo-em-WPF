@@ -1,4 +1,4 @@
-﻿using SonicTheHedgehog.Enumeradores;
+﻿using MegamanTheHedgehog.Enumeradores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SonicTheHedgehog.Objetos
+namespace MegamanTheHedgehog.Objetos
 {
     public class Obstaculos
     {

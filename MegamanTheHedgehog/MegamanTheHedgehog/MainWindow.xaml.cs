@@ -1,5 +1,5 @@
-﻿using SonicTheHedgehog.Enumeradores;
-using SonicTheHedgehog.Objetos;
+﻿using MegamanTheHedgehog.Enumeradores;
+using MegamanTheHedgehog.Objetos;
 using System;
 using System.Media;
 using System.Windows;
@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 
-namespace SonicTheHedgehog
+namespace MegamanTheHedgehog
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
