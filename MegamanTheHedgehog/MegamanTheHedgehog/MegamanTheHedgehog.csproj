@@ -108,6 +108,7 @@
     <Compile Include="Objetos\ObstaculoEsquerda.cs" />
     <Compile Include="Objetos\Obstaculos.cs" />
     <Compile Include="Objetos\ObstaculoTopo.cs" />
+    <Compile Include="Objetos\Personagem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

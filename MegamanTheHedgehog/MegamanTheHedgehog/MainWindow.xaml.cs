@@ -13,18 +13,17 @@ namespace MegamanTheHedgehog
 {
     public partial class MainWindow : Window
     {
-        int imagemAtualIndex = 0;
-        bool podePular = true;
         DispatcherTimer timer;
-        double marginTopPersonagem, gravidade = -1.5;
-        Acao acao;
+        
         bool moverDireita, moverEsquerda;
         int pontuacao = 0, recorde = 0;
         bool novoRecorde;
         SoundPlayer somdeFundo;
 
+        Acao acao;
         Obstaculos obstaculos;
         Background background;
+        Personagem personagem;
 
 
         public MainWindow()
@@ -33,8 +32,7 @@ namespace MegamanTheHedgehog
 
             obstaculos = new Obstaculos(imgObstaculoUp, imgObstaculoUp, imgObstaculoLeft);
             background = new Background(imgBackgroundDireita, imgBackgroundEsquerda, Width);
-
-            marginTopPersonagem = imgPersonagem.Margin.Top;
+            personagem = new Personagem(imgPersonagem);
 
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
@@ -54,16 +52,14 @@ namespace MegamanTheHedgehog
             lblRecord.Content = "Record: " + recorde;
             lblScore.Content = "Score: 0";
 
-            imgPersonagem.RenderTransform = new ScaleTransform(1, 1);
-            imgPersonagem.Width = imgPersonagem.Height = 130;
-            imgPersonagem.Margin = new Thickness(this.Width / 2, marginTopPersonagem, 0, 0);
+            personagem.ReiniciarPosicao(Width);
 
             obstaculos.ReiniciarPosicoes();
 
             moverDireita = moverEsquerda = false;
             AtualizarAcaoDoObstaculo();
 
-            button.Visibility = Visibility.Hidden;
+            btnIniciar.Visibility = Visibility.Hidden;
             lblFimDeJogo.Visibility = Visibility.Hidden;
 
             timer.Start();
@@ -72,7 +68,7 @@ namespace MegamanTheHedgehog
 
         private void TocarMusicaDeFundo()
         {
-            //Ao criar o executavel, o arquivo de audio muda a sua localização
+            //Ao criar o executavel, o arquivo de audio muda de localização
             try
             {
                 somdeFundo.SoundLocation = "Audio/Robotnik.wav";
@@ -95,51 +91,20 @@ namespace MegamanTheHedgehog
         {
             if (moverDireita)
             {
-                imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left - 20, imgObstaculoUp.Margin.Top, 0, 0);
-                imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left + 30, imgPersonagem.Margin.Top, 0, 0);
-
-                background.MoverParaEsquerda();
-
-                if (imgPersonagem.Margin.Left >= this.Width - 50)
-                {
-                    imgPersonagem.Margin = new Thickness(0, imgPersonagem.Margin.Top, 0, 0);
-                }
-
-                BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (imagemAtualIndex) + ".png", UriKind.RelativeOrAbsolute));
-                imgPersonagem.Source = img;
-                imagemAtualIndex = (imagemAtualIndex + 1) % 9;
-                ScaleTransform x = new ScaleTransform(1, 1);
-                imgPersonagem.RenderTransform = x;
+                obstaculos.Topo.DeslocarParaEsqueda();
+                background.DeslocarParaEsquerda();
+                personagem.MoverParaDireita(this.Width);
             }
             else if (moverEsquerda)
             {
-                imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left + 20, imgObstaculoUp.Margin.Top, 0, 0);
-                imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left - 30, imgPersonagem.Margin.Top, 0, 0);
-
-                background.MoverParaDireita();
-
-                if (imgPersonagem.Margin.Left <= -imgPersonagem.Width + 80)
-                {
-                    imgPersonagem.Margin = new Thickness(this.Width, imgPersonagem.Margin.Top, 0, 0);
-                }
-
-                BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (imagemAtualIndex) + ".png", UriKind.RelativeOrAbsolute));
-                imgPersonagem.Source = img;
-                imagemAtualIndex = (imagemAtualIndex + 1) % 9;
-                ScaleTransform x = new ScaleTransform(-1, 1);
-                imgPersonagem.RenderTransform = x;
+                obstaculos.Topo.DeslocarParaDireita();          
+                background.DeslocarParaDireita();
+                personagem.MoverParaEsquerda(this.Width);
             }
 
-            if (!podePular)
+            if (!personagem.Pulando)
             {
-                imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left, imgPersonagem.Margin.Top + (imgPersonagem.Height * gravidade), 0, 0);
-                gravidade += 0.5;
-                if (imgPersonagem.Margin.Top >= marginTopPersonagem)
-                {
-                    imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left, marginTopPersonagem, 0, 0);
-                    podePular = true;
-                    gravidade = -1.5;
-                }
+                personagem.PularOuCair();
             }
         }
 
@@ -150,7 +115,7 @@ namespace MegamanTheHedgehog
             VerificarColisao();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void btnIniciar_Click(object sender, RoutedEventArgs e)
         {
             IniciarJogo();
         }
@@ -187,7 +152,7 @@ namespace MegamanTheHedgehog
         {
             imgPersonagem.RenderTransform = new ScaleTransform(1, -1);
             timer.Stop();
-            button.Visibility = Visibility.Visible;
+            btnIniciar.Visibility = Visibility.Visible;
 
             if (novoRecorde)
                 lblFimDeJogo.Content = "New Record: " + recorde;
@@ -232,9 +197,9 @@ namespace MegamanTheHedgehog
                 moverEsquerda = true;
             }
 
-            if (e.Key == Key.Up && podePular)
+            if (e.Key == Key.Up && personagem.Pulando)
             {
-                podePular = false;
+                personagem.Pulando = false;
             }
         }
 

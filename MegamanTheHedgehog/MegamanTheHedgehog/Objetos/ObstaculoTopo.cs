@@ -45,5 +45,15 @@ namespace MegamanTheHedgehog.Objetos
             var limiteHorizontal = (int)larguraJanela - (int)Imagem.Width;
             return random.Next(0, limiteHorizontal);
         }
+
+        public void DeslocarParaEsqueda()
+        {
+            Imagem.Margin = new Thickness(Imagem.Margin.Left - 20, Imagem.Margin.Top, 0, 0);
+        }
+
+        public void DeslocarParaDireita()
+        {
+            Imagem.Margin = new Thickness(Imagem.Margin.Left + 20, Imagem.Margin.Top, 0, 0);
+        }
     }
 }

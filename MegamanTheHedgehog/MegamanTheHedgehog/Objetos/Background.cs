@@ -23,7 +23,7 @@ namespace MegamanTheHedgehog.Objetos
             imagemDireita.Margin = new Thickness(-imagemDireita.Width, 0, 0, 0);
         }
 
-        public void MoverParaDireita()
+        public void DeslocarParaDireita()
         {
             imagemEsquerda.Margin = new Thickness(imagemEsquerda.Margin.Left + 20, 0, 0, 0);
             imagemDireita.Margin = new Thickness(imagemDireita.Margin.Left + 20, 0, 0, 0);
@@ -34,7 +34,7 @@ namespace MegamanTheHedgehog.Objetos
                 imagemDireita.Margin = new Thickness(-imagemDireita.Width + 80, 0, 0, 0);
         }
 
-        internal void MoverParaEsquerda()
+        internal void DeslocarParaEsquerda()
         {
             imagemEsquerda.Margin = new Thickness(imagemEsquerda.Margin.Left - 20, 0, 0, 0);
             imagemDireita.Margin = new Thickness(imagemDireita.Margin.Left - 20, 0, 0, 0);
