@@ -95,12 +95,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enumeradores\AcaoEnum.cs" />
+    <Compile Include="Enumeradores\Movimento.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objetos\Obstaculo.cs" />
+    <Compile Include="Objetos\ObstaculoDireita.cs" />
+    <Compile Include="Objetos\ObstaculoEsquerda.cs" />
+    <Compile Include="Objetos\Obstaculos.cs" />
+    <Compile Include="Objetos\ObstaculoTopo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -164,7 +170,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Objetos\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

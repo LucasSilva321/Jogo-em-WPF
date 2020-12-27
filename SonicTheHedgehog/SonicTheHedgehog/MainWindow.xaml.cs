@@ -1,4 +1,5 @@
 ﻿using SonicTheHedgehog.Enumeradores;
+using SonicTheHedgehog.Objetos;
 using System;
 using System.Media;
 using System.Windows;
@@ -16,26 +17,23 @@ namespace SonicTheHedgehog
     public partial class MainWindow : Window
     {
         int imagemAtualIndex = 0;
-        Random random = new Random();
         bool podePular = true;
-        bool posicionarObstaculoUp = true;
         DispatcherTimer timer;
         double marginTopPersonagem, gravidade = -1.5;
         Acao acao;
-        Thickness posObstaculoUp, posObstaculoRight, posObstaculLeft;
         bool moverDireita, moverEsquerda;
         int pontuacao = 0, recorde = 0;
         bool novoRecorde;
         SoundPlayer somdeFundo;
+        Obstaculos obstaculos;
 
 
         public MainWindow()
         {
             InitializeComponent();
 
-            posObstaculoUp = imgObstaculoUp.Margin;
-            posObstaculoRight = imgObstaculoRight.Margin;
-            posObstaculLeft = imgObstaculoLeft.Margin;
+            obstaculos = new Obstaculos(imgObstaculoUp, imgObstaculoUp, imgObstaculoLeft);
+
             marginTopPersonagem = imgPersonagem.Margin.Top;
 
             imgBackground1.Width = this.Width;
@@ -65,9 +63,7 @@ namespace SonicTheHedgehog
             imgPersonagem.Width = imgPersonagem.Height = 130;
             imgPersonagem.Margin = new Thickness(this.Width / 2, marginTopPersonagem, 0, 0);
 
-            imgObstaculoUp.Margin = posObstaculoUp;
-            imgObstaculoRight.Margin = posObstaculoRight;
-            imgObstaculoLeft.Margin = posObstaculLeft;
+            obstaculos.ReiniciarPosicoes();
 
             moverDireita = moverEsquerda = false;
             AtualizarAcaoDoObstaculo();
@@ -206,8 +202,6 @@ namespace SonicTheHedgehog
             timer.Stop();
             button.Visibility = Visibility.Visible;
 
-
-
             if (novoRecorde)
                 lblFimDeJogo.Content = "New Record: " + recorde;
             else
@@ -231,51 +225,14 @@ namespace SonicTheHedgehog
 
         void MoverObstaculo()
         {
-            if (acao == Acao.MoverObstaculoDoTopo)
-            {
-                if (posicionarObstaculoUp)
-                {
-                    double left = random.Next(0, (int)this.Width - (int)imgObstaculoUp.Width);
-                    imgObstaculoUp.Margin = new Thickness(left, imgObstaculoUp.Margin.Top, 0, 0);
-                    posicionarObstaculoUp = false;
-                }
-                if (imgObstaculoUp.Margin.Top > this.Height)
-                {
-                    imgObstaculoUp.Margin = posObstaculoUp;
-                    AtualizarAcaoDoObstaculo();
-                    MarcarPontuacao();
-                    posicionarObstaculoUp = true;
-                    return;
-                }
-                imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left, imgObstaculoUp.Margin.Top + 40, 0, 0);
+            var movimento = obstaculos.Mover(acao, this.Width);
 
-            }
-            if (acao == Acao.MoverObstaculoDaDireita)
+            if (movimento == Movimento.Finalizado)
             {
-
-                if (imgObstaculoRight.Margin.Left + imgObstaculoRight.Width <= 0)
-                {
-                    imgObstaculoRight.Margin = posObstaculoRight;
-                    AtualizarAcaoDoObstaculo();
-                    MarcarPontuacao();
-                    return;
-                }
-                imgObstaculoRight.Margin = new Thickness(imgObstaculoRight.Margin.Left - 80, imgObstaculoRight.Margin.Top, 0, 0);
-            }
-            if (acao == Acao.MoverObstaculoDaEsquerda)
-            {
-
-                if (imgObstaculoLeft.Margin.Left >= this.Width)
-                {
-                    imgObstaculoLeft.Margin = posObstaculLeft;
-                    AtualizarAcaoDoObstaculo();
-                    MarcarPontuacao();
-                    return;
-                }
-                imgObstaculoLeft.Margin = new Thickness(imgObstaculoLeft.Margin.Left + 80, imgObstaculoLeft.Margin.Top, 0, 0);
+                AtualizarAcaoDoObstaculo();
+                MarcarPontuacao();
             }
         }
-
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -291,13 +248,12 @@ namespace SonicTheHedgehog
             if (e.Key == Key.Up && podePular)
             {
                 podePular = false;
-                BitmapImage img = new BitmapImage(new Uri("Imagens/parado.png", UriKind.RelativeOrAbsolute));
-                //  imgPersonagem.Source = img;             
             }
         }
 
         private void AtualizarAcaoDoObstaculo()
         {
+            var random = new Random();
             acao = (Acao)random.Next(0, 3);
         }
     }
