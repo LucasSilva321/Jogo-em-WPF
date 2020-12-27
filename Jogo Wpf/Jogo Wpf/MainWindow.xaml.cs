@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jogo_Wpf.Enumeradores;
+using System;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
@@ -14,20 +15,18 @@ namespace Jogo_Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        int i = 0;
-        Random r = new Random();
+        int imagemAtualIndex = 0;
+        Random random = new Random();
         bool podePular = true;
         bool posicionarObstaculoUp = true;
         DispatcherTimer timer;
         double marginTopPersonagem, gravidade = -1.5;
-        int acao;
+        Acao acao;
         Thickness posObstaculoUp, posObstaculoRight, posObstaculLeft;
         bool moverDireita, moverEsquerda;
         int pontuacao = 0, recorde = 0;
         bool novoRecorde;
         SoundPlayer somdeFundo;
-
-
 
 
         public MainWindow()
@@ -51,31 +50,16 @@ namespace Jogo_Wpf
             lblFimDeJogo.Visibility = Visibility.Hidden;
 
             somdeFundo = new SoundPlayer();
-
-            
-
         }
 
         void IniciarJogo()
         {
-            //Ao criar o executavel, o arquivo de audio muda a sua localização
-            try
-            {
-                somdeFundo.SoundLocation = "Audio/Robotnik.wav";
-                somdeFundo.PlayLooping();
-            }
-            catch 
-            {
+            TocarMusicaDeFundo();
 
-                somdeFundo.SoundLocation = "Robotnik.wav";
-                somdeFundo.PlayLooping();
-            }
-           
             novoRecorde = false;
             pontuacao = 0;
             lblRecord.Content = "Record: " + recorde;
             lblScore.Content = "Score: 0";
-
 
             imgPersonagem.RenderTransform = new ScaleTransform(1, 1);
             imgPersonagem.Width = imgPersonagem.Height = 130;
@@ -86,13 +70,29 @@ namespace Jogo_Wpf
             imgObstaculoLeft.Margin = posObstaculLeft;
 
             moverDireita = moverEsquerda = false;
-            acao = r.Next(0, 3);
+            AtualizarAcaoDoObstaculo();
 
             button.Visibility = Visibility.Hidden;
             lblFimDeJogo.Visibility = Visibility.Hidden;
 
             timer.Start();
             MoverObstaculo();
+        }
+
+        private void TocarMusicaDeFundo()
+        {
+            //Ao criar o executavel, o arquivo de audio muda a sua localização
+            try
+            {
+                somdeFundo.SoundLocation = "Audio/Robotnik.wav";
+                somdeFundo.PlayLooping();
+            }
+            catch
+            {
+
+                somdeFundo.SoundLocation = "Robotnik.wav";
+                somdeFundo.PlayLooping();
+            }
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -116,9 +116,9 @@ namespace Jogo_Wpf
                 {
                     imgPersonagem.Margin = new Thickness(0, imgPersonagem.Margin.Top, 0, 0);
                 }
-                BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (i) + ".png", UriKind.RelativeOrAbsolute));
+                BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (imagemAtualIndex) + ".png", UriKind.RelativeOrAbsolute));
                 imgPersonagem.Source = img;
-                i = (i + 1) % 9;
+                imagemAtualIndex = (imagemAtualIndex + 1) % 9;
                 ScaleTransform x = new ScaleTransform(1, 1);
                 imgPersonagem.RenderTransform = x;
             }
@@ -138,9 +138,9 @@ namespace Jogo_Wpf
                 if (imgBackground2.Margin.Left >= imgBackground2.Width)
                     imgBackground2.Margin = new Thickness(-imgBackground2.Width + 80, 0, 0, 0);
 
-                BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (i) + ".png", UriKind.RelativeOrAbsolute));
+                BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (imagemAtualIndex) + ".png", UriKind.RelativeOrAbsolute));
                 imgPersonagem.Source = img;
-                i = (i + 1) % 9;
+                imagemAtualIndex = (imagemAtualIndex + 1) % 9;
                 ScaleTransform x = new ScaleTransform(-1, 1);
                 imgPersonagem.RenderTransform = x;
             }
@@ -163,10 +163,7 @@ namespace Jogo_Wpf
             MoverPersonagem();
             MoverObstaculo();
             VerificarColisao();
-
         }
-
-
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
@@ -230,60 +227,54 @@ namespace Jogo_Wpf
             }
             lblRecord.Content = "Record: " + recorde;
             lblScore.Content = "Score: " + pontuacao;
-
         }
-
-
 
         void MoverObstaculo()
         {
-            if (acao == 0)
+            if (acao == Acao.MoverObstaculoDoTopo)
             {
                 if (posicionarObstaculoUp)
                 {
-                    double left = r.Next(0, (int)this.Width - (int)imgObstaculoUp.Width);
+                    double left = random.Next(0, (int)this.Width - (int)imgObstaculoUp.Width);
                     imgObstaculoUp.Margin = new Thickness(left, imgObstaculoUp.Margin.Top, 0, 0);
                     posicionarObstaculoUp = false;
                 }
                 if (imgObstaculoUp.Margin.Top > this.Height)
                 {
                     imgObstaculoUp.Margin = posObstaculoUp;
-                    acao = r.Next(0, 3);
+                    AtualizarAcaoDoObstaculo();
                     MarcarPontuacao();
                     posicionarObstaculoUp = true;
                     return;
                 }
                 imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left, imgObstaculoUp.Margin.Top + 40, 0, 0);
 
-
             }
-            if (acao == 1)
+            if (acao == Acao.MoverObstaculoDaDireita)
             {
 
                 if (imgObstaculoRight.Margin.Left + imgObstaculoRight.Width <= 0)
                 {
                     imgObstaculoRight.Margin = posObstaculoRight;
-                    acao = r.Next(0, 3);
+                    AtualizarAcaoDoObstaculo();
                     MarcarPontuacao();
                     return;
                 }
                 imgObstaculoRight.Margin = new Thickness(imgObstaculoRight.Margin.Left - 80, imgObstaculoRight.Margin.Top, 0, 0);
             }
-            if (acao == 2)
+            if (acao == Acao.MoverObstaculoDaEsquerda)
             {
 
                 if (imgObstaculoLeft.Margin.Left >= this.Width)
                 {
                     imgObstaculoLeft.Margin = posObstaculLeft;
-                    acao = r.Next(0, 3);
+                    AtualizarAcaoDoObstaculo();
                     MarcarPontuacao();
                     return;
                 }
                 imgObstaculoLeft.Margin = new Thickness(imgObstaculoLeft.Margin.Left + 80, imgObstaculoLeft.Margin.Top, 0, 0);
             }
         }
-
-
 
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -295,7 +286,6 @@ namespace Jogo_Wpf
             if (e.Key == Key.Left)
             {
                 moverEsquerda = true;
-
             }
 
             if (e.Key == Key.Up && podePular)
@@ -304,6 +294,11 @@ namespace Jogo_Wpf
                 BitmapImage img = new BitmapImage(new Uri("Imagens/parado.png", UriKind.RelativeOrAbsolute));
                 //  imgPersonagem.Source = img;             
             }
+        }
+
+        private void AtualizarAcaoDoObstaculo()
+        {
+            acao = (Acao)random.Next(0, 3);
         }
     }
 }
