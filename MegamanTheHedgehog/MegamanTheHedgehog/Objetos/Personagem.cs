@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MegamanTheHedgehog.Enumeradores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace MegamanTheHedgehog.Objetos
 
         public bool Pulando { get; set; } = true;
 
+        public bool MoverDireita { get; private set; }
+        public bool MoverEsquerda { get; private set; }
+
         public Personagem(Image imagem)
         {
             this.imagem = imagem;
@@ -34,6 +38,7 @@ namespace MegamanTheHedgehog.Objetos
             imagem.RenderTransform = new ScaleTransform(1, 1);
             imagem.Width = imagem.Height = 130;
             imagem.Margin = new Thickness(larguraJanela / 2, marginTopPersonagem, 0, 0);
+            PararMovimento();
         }
 
         internal void MoverParaDireita(double larguraJanela)
@@ -99,5 +104,27 @@ namespace MegamanTheHedgehog.Objetos
             imagem.RenderTransform = x;
         }
 
+        internal void PararMovimento()
+        {
+            MoverDireita = MoverEsquerda = false;
+        }
+
+        internal void DefinirDirecao(Direcao direcao)
+        {
+            if (direcao == Direcao.Direita)
+            {
+                MoverDireita = true;
+                MoverEsquerda = false;
+            }
+            if (direcao == Direcao.Esquerda)
+            {
+                MoverDireita = false;
+                MoverEsquerda = true;
+            }
+            if (direcao == Direcao.Vertical)
+            {
+                Pulando = false;
+            }
+        }
     }
 }

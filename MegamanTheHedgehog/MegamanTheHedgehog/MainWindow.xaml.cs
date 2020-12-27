@@ -14,59 +14,44 @@ namespace MegamanTheHedgehog
 {
     public partial class MainWindow : Window
     {
-        ObstaculosPrimeiraFase obstaculos;
-        Background background;
         Personagem personagem;
+        ObstaculosPrimeiraFase obstaculos;
+        Placar placar;
+        Background background;
 
         DispatcherTimer timer;
         SoundPlayer somdeFundo;
         
         Acao acao;
-        bool moverDireita, moverEsquerda;
-        int pontuacao = 0, recorde = 0;
-        bool novoRecorde;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            obstaculos = new ObstaculosPrimeiraFase(imgObstaculoUp, imgObstaculoUp, imgObstaculoLeft);
-            background = new Background(imgBackgroundDireita, imgBackgroundEsquerda, Width);
             personagem = new Personagem(imgPersonagem);
+            obstaculos = new ObstaculosPrimeiraFase(imgObstaculoUp, imgObstaculoUp, imgObstaculoLeft);
+            placar = new Placar(btnIniciar, lblScore, lblRecord, lblFimDeJogo);
+            background = new Background(imgBackgroundDireita, imgBackgroundEsquerda, Width);
 
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             timer.Tick += Timer_Tick;
 
-            lblFimDeJogo.Visibility = Visibility.Hidden;
 
             somdeFundo = new SoundPlayer();
         }
 
         void IniciarJogo()
         {
-            TocarMusicaDeFundo();
-            ReiniciarPontuação();
-
+            placar.ReiniciarPontuação();
             personagem.ReiniciarPosicao(Width);
             obstaculos.ReiniciarPosicoes();
+
+            TocarMusicaDeFundo();
             AtualizarAcaoDoObstaculo();
-
-            moverDireita = moverEsquerda = false;
-
-            btnIniciar.Visibility = Visibility.Hidden;
-            lblFimDeJogo.Visibility = Visibility.Hidden;
 
             timer.Start();
             MoverObstaculo();
-        }
-
-        private void ReiniciarPontuação()
-        {
-            novoRecorde = false;
-            pontuacao = 0;
-            lblRecord.Content = "Record: " + recorde;
-            lblScore.Content = "Score: 0";
         }
 
         private void TocarMusicaDeFundo()
@@ -85,16 +70,15 @@ namespace MegamanTheHedgehog
             }
         }
 
-
         void MoverPersonagem()
         {
-            if (moverDireita)
+            if (personagem.MoverDireita)
             {
                 obstaculos.Topo.DeslocarParaEsqueda();
                 background.DeslocarParaEsquerda();
                 personagem.MoverParaDireita(this.Width);
             }
-            else if (moverEsquerda)
+            else if (personagem.MoverEsquerda)
             {
                 obstaculos.Topo.DeslocarParaDireita();          
                 background.DeslocarParaDireita();
@@ -130,28 +114,8 @@ namespace MegamanTheHedgehog
         {
             personagem.Parar();
             timer.Stop();
-
-            btnIniciar.Visibility = Visibility.Visible;
-
-            if (novoRecorde)
-                lblFimDeJogo.Content = "New Record: " + recorde;
-            else
-                lblFimDeJogo.Content = "Score: " + pontuacao;
-
-            lblFimDeJogo.Visibility = Visibility.Visible;
+            placar.Finalizar();
             somdeFundo.Stop();
-        }
-
-        void MarcarPontuacao()
-        {
-            pontuacao += 100;
-            if (recorde <= pontuacao)
-            {
-                novoRecorde = true;
-                recorde = pontuacao;
-            }
-            lblRecord.Content = "Record: " + recorde;
-            lblScore.Content = "Score: " + pontuacao;
         }
 
         void MoverObstaculo()
@@ -161,7 +125,7 @@ namespace MegamanTheHedgehog
             if (movimento == Movimento.Finalizado)
             {
                 AtualizarAcaoDoObstaculo();
-                MarcarPontuacao();
+                placar.MarcarPontuacao();
             }
         }
 
@@ -173,23 +137,23 @@ namespace MegamanTheHedgehog
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            moverEsquerda = moverDireita = false;
+            personagem.PararMovimento();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Right)
             {
-                moverDireita = true;
+                personagem.DefinirDirecao(Direcao.Direita);
             }
             if (e.Key == Key.Left)
             {
-                moverEsquerda = true;
+                personagem.DefinirDirecao(Direcao.Esquerda);
             }
 
             if (e.Key == Key.Up && personagem.Pulando)
             {
-                personagem.Pulando = false;
+                personagem.DefinirDirecao(Direcao.Vertical);
             }
         }
     }

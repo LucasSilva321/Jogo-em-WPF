@@ -95,6 +95,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enumeradores\AcaoEnum.cs" />
+    <Compile Include="Enumeradores\Direcao.cs" />
     <Compile Include="Enumeradores\Movimento.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -109,6 +110,7 @@
     <Compile Include="Objetos\ObstaculosPrimeiraFase.cs" />
     <Compile Include="Objetos\ObstaculoTopo.cs" />
     <Compile Include="Objetos\Personagem.cs" />
+    <Compile Include="Objetos\Placar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
