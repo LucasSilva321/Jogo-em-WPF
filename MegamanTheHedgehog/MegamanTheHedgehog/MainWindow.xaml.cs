@@ -29,7 +29,7 @@ namespace MegamanTheHedgehog
             InitializeComponent();
 
             personagem = new Personagem(imgPersonagem);
-            obstaculos = new ObstaculosPrimeiraFase(imgObstaculoUp, imgObstaculoUp, imgObstaculoLeft);
+            obstaculos = new ObstaculosPrimeiraFase(imgObstaculoUp, imgObstaculoRight, imgObstaculoLeft);
             placar = new Placar(btnIniciar, lblScore, lblRecord, lblFimDeJogo);
             background = new Background(imgBackgroundDireita, imgBackgroundEsquerda, Width);
 
@@ -74,15 +74,15 @@ namespace MegamanTheHedgehog
         {
             if (personagem.MoverDireita)
             {
+                personagem.MoverParaDireita(this.Width);
                 obstaculos.Topo.DeslocarParaEsqueda();
                 background.DeslocarParaEsquerda();
-                personagem.MoverParaDireita(this.Width);
             }
             else if (personagem.MoverEsquerda)
             {
+                personagem.MoverParaEsquerda(this.Width);
                 obstaculos.Topo.DeslocarParaDireita();          
                 background.DeslocarParaDireita();
-                personagem.MoverParaEsquerda(this.Width);
             }
 
             if (!personagem.Pulando)
@@ -93,9 +93,9 @@ namespace MegamanTheHedgehog
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            VerificarColisao();
             MoverPersonagem();
             MoverObstaculo();
-            VerificarColisao();
         }
 
         private void btnIniciar_Click(object sender, RoutedEventArgs e)
