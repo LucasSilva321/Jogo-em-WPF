@@ -9,13 +9,13 @@ using System.Windows.Controls;
 
 namespace MegamanTheHedgehog.Objetos
 {
-    public class Obstaculos
+    public class ObstaculosPrimeiraFase
     {
         public ObstaculoTopo Topo { get; }
         public ObstaculoDireita Direita { get; }
         public ObstaculoEsquerda Esquerda { get; }
 
-        public Obstaculos(Image topo, Image direita, Image esquerda)
+        public ObstaculosPrimeiraFase(Image topo, Image direita, Image esquerda)
         {
             Topo = new ObstaculoTopo(topo);
             Direita = new ObstaculoDireita(direita);
@@ -43,6 +43,11 @@ namespace MegamanTheHedgehog.Objetos
             {
                 return Esquerda.Mover(larguraJanela);
             }
+        }
+
+        public List<Obstaculo> ToList()
+        {
+            return new List<Obstaculo> { Direita, Esquerda, Topo };
         }
     }
 }

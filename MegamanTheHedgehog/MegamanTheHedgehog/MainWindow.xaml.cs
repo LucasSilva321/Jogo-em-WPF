@@ -1,6 +1,7 @@
 ﻿using MegamanTheHedgehog.Enumeradores;
 using MegamanTheHedgehog.Objetos;
 using System;
+using System.Collections.Generic;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
@@ -13,24 +14,23 @@ namespace MegamanTheHedgehog
 {
     public partial class MainWindow : Window
     {
-        DispatcherTimer timer;
-        
-        bool moverDireita, moverEsquerda;
-        int pontuacao = 0, recorde = 0;
-        bool novoRecorde;
-        SoundPlayer somdeFundo;
-
-        Acao acao;
-        Obstaculos obstaculos;
+        ObstaculosPrimeiraFase obstaculos;
         Background background;
         Personagem personagem;
 
+        DispatcherTimer timer;
+        SoundPlayer somdeFundo;
+        
+        Acao acao;
+        bool moverDireita, moverEsquerda;
+        int pontuacao = 0, recorde = 0;
+        bool novoRecorde;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            obstaculos = new Obstaculos(imgObstaculoUp, imgObstaculoUp, imgObstaculoLeft);
+            obstaculos = new ObstaculosPrimeiraFase(imgObstaculoUp, imgObstaculoUp, imgObstaculoLeft);
             background = new Background(imgBackgroundDireita, imgBackgroundEsquerda, Width);
             personagem = new Personagem(imgPersonagem);
 
@@ -46,24 +46,27 @@ namespace MegamanTheHedgehog
         void IniciarJogo()
         {
             TocarMusicaDeFundo();
-
-            novoRecorde = false;
-            pontuacao = 0;
-            lblRecord.Content = "Record: " + recorde;
-            lblScore.Content = "Score: 0";
+            ReiniciarPontuação();
 
             personagem.ReiniciarPosicao(Width);
-
             obstaculos.ReiniciarPosicoes();
+            AtualizarAcaoDoObstaculo();
 
             moverDireita = moverEsquerda = false;
-            AtualizarAcaoDoObstaculo();
 
             btnIniciar.Visibility = Visibility.Hidden;
             lblFimDeJogo.Visibility = Visibility.Hidden;
 
             timer.Start();
             MoverObstaculo();
+        }
+
+        private void ReiniciarPontuação()
+        {
+            novoRecorde = false;
+            pontuacao = 0;
+            lblRecord.Content = "Record: " + recorde;
+            lblScore.Content = "Score: 0";
         }
 
         private void TocarMusicaDeFundo()
@@ -82,10 +85,6 @@ namespace MegamanTheHedgehog
             }
         }
 
-        private void Window_KeyUp(object sender, KeyEventArgs e)
-        {
-            moverEsquerda = moverDireita = false;
-        }
 
         void MoverPersonagem()
         {
@@ -122,36 +121,16 @@ namespace MegamanTheHedgehog
 
         void VerificarColisao()
         {
-            double personagemLeft = imgPersonagem.Margin.Left;
-            double personagemRight = personagemLeft + imgPersonagem.Width;
-            double personagemTop = imgPersonagem.Margin.Top;
-            double personagemBottom = personagemTop + imgPersonagem.Height;
-
-            if (personagemTop <= imgObstaculoUp.Margin.Top + imgObstaculoUp.Height && personagemBottom >= imgObstaculoUp.Margin.Top)
-            {
-                if (personagemLeft <= imgObstaculoUp.Margin.Left + imgObstaculoUp.Width && personagemRight >= imgObstaculoUp.Margin.Left)
-                {
-                    FinalizarJogo();
-                }
-            }
-
-            if (personagemBottom >= imgObstaculoRight.Margin.Top)
-            {
-                if (personagemLeft <= imgObstaculoRight.Margin.Left + imgObstaculoRight.Width && personagemRight >= imgObstaculoRight.Margin.Left)
-                {
-                    FinalizarJogo();
-                }
-                else if (personagemLeft <= imgObstaculoLeft.Margin.Left + imgObstaculoLeft.Width && personagemRight >= imgObstaculoLeft.Margin.Left)
-                {
-                    FinalizarJogo();
-                }
+            if (personagem.TeveColisao(obstaculos.ToList())){
+                FinalizarJogo();
             }
         }
 
         void FinalizarJogo()
         {
-            imgPersonagem.RenderTransform = new ScaleTransform(1, -1);
+            personagem.Parar();
             timer.Stop();
+
             btnIniciar.Visibility = Visibility.Visible;
 
             if (novoRecorde)
@@ -186,6 +165,17 @@ namespace MegamanTheHedgehog
             }
         }
 
+        private void AtualizarAcaoDoObstaculo()
+        {
+            var random = new Random();
+            acao = (Acao)random.Next(0, 3);
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            moverEsquerda = moverDireita = false;
+        }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Right)
@@ -201,12 +191,6 @@ namespace MegamanTheHedgehog
             {
                 personagem.Pulando = false;
             }
-        }
-
-        private void AtualizarAcaoDoObstaculo()
-        {
-            var random = new Random();
-            acao = (Acao)random.Next(0, 3);
         }
     }
 }

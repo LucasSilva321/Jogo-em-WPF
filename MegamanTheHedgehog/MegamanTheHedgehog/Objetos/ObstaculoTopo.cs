@@ -55,5 +55,6 @@ namespace MegamanTheHedgehog.Objetos
         {
             Imagem.Margin = new Thickness(Imagem.Margin.Left + 20, Imagem.Margin.Top, 0, 0);
         }
+
     }
 }

@@ -106,7 +106,7 @@
     <Compile Include="Objetos\Obstaculo.cs" />
     <Compile Include="Objetos\ObstaculoDireita.cs" />
     <Compile Include="Objetos\ObstaculoEsquerda.cs" />
-    <Compile Include="Objetos\Obstaculos.cs" />
+    <Compile Include="Objetos\ObstaculosPrimeiraFase.cs" />
     <Compile Include="Objetos\ObstaculoTopo.cs" />
     <Compile Include="Objetos\Personagem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

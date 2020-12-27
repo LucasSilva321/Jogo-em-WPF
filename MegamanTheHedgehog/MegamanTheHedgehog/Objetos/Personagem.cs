@@ -16,6 +16,11 @@ namespace MegamanTheHedgehog.Objetos
         double marginTopPersonagem, gravidade = -1.5;
         Image imagem;
 
+        public double Left => imagem.Margin.Left;
+        public double Right => Left + imagem.Width;
+        public double Top => imagem.Margin.Top;
+        public double Bottom => Top + imagem.Height;
+
         public bool Pulando { get; set; } = true;
 
         public Personagem(Image imagem)
@@ -67,6 +72,24 @@ namespace MegamanTheHedgehog.Objetos
             }
         }
 
+        internal bool TeveColisao(List<Obstaculo> obstaculos)
+        {
+            foreach (var obstaculo in obstaculos)
+            {
+                if (obstaculo.TeveColisao(this))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        internal void Parar()
+        {
+            imagem.RenderTransform = new ScaleTransform(1, -1);
+        }
+
         private void AtualizarFrame(double scaleX)
         {
             BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (imagemAtualIndex) + ".png", UriKind.RelativeOrAbsolute));
@@ -75,5 +98,6 @@ namespace MegamanTheHedgehog.Objetos
             ScaleTransform x = new ScaleTransform(scaleX, 1);
             imagem.RenderTransform = x;
         }
+
     }
 }

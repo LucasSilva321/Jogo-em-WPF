@@ -28,5 +28,6 @@ namespace MegamanTheHedgehog.Objetos
                 return Movimento.EmAndamento;
             }
         }
+
     }
 }
