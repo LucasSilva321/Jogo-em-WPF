@@ -1,4 +1,4 @@
-﻿using Jogo_Wpf.Enumeradores;
+﻿using SonicTheHedgehog.Enumeradores;
 using System;
 using System.Media;
 using System.Windows;
@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 
-namespace Jogo_Wpf
+namespace SonicTheHedgehog
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

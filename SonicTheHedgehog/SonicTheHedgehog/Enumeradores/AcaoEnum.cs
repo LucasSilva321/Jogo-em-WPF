@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jogo_Wpf.Enumeradores
+namespace SonicTheHedgehog.Enumeradores
 {
     public enum Acao
     {

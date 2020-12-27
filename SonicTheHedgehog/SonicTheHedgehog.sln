@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jogo Wpf", "Jogo Wpf\Jogo Wpf.csproj", "{37C9D7EE-FE42-4F6F-834C-F93280DE7C91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicTheHedgehog", "SonicTheHedgehog\SonicTheHedgehog.csproj", "{37C9D7EE-FE42-4F6F-834C-F93280DE7C91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6370D76F-116A-4BBC-9126-95C279F7F43F}
 	EndGlobalSection
 EndGlobal

@@ -7,7 +7,7 @@
     <ProjectGuid>{37C9D7EE-FE42-4F6F-834C-F93280DE7C91}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jogo_Wpf</RootNamespace>
+    <RootNamespace>SonicTheHedgehog</RootNamespace>
     <AssemblyName>Megaman The Hedgehog</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
