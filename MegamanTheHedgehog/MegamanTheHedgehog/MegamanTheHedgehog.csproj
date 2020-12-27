@@ -102,6 +102,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objetos\Background.cs" />
     <Compile Include="Objetos\Obstaculo.cs" />
     <Compile Include="Objetos\ObstaculoDireita.cs" />
     <Compile Include="Objetos\ObstaculoEsquerda.cs" />

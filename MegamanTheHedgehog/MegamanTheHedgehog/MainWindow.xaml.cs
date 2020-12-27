@@ -11,9 +11,6 @@ using System.Windows.Threading;
 
 namespace MegamanTheHedgehog
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         int imagemAtualIndex = 0;
@@ -25,7 +22,9 @@ namespace MegamanTheHedgehog
         int pontuacao = 0, recorde = 0;
         bool novoRecorde;
         SoundPlayer somdeFundo;
+
         Obstaculos obstaculos;
+        Background background;
 
 
         public MainWindow()
@@ -33,13 +32,9 @@ namespace MegamanTheHedgehog
             InitializeComponent();
 
             obstaculos = new Obstaculos(imgObstaculoUp, imgObstaculoUp, imgObstaculoLeft);
+            background = new Background(imgBackgroundDireita, imgBackgroundEsquerda, Width);
 
             marginTopPersonagem = imgPersonagem.Margin.Top;
-
-            imgBackground1.Width = this.Width;
-            imgBackground2.Width = this.Width;
-            imgBackground1.Margin = new Thickness(0, 0, 0, 0);
-            imgBackground2.Margin = new Thickness(-imgBackground2.Width, 0, 0, 0);
 
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
@@ -101,17 +96,15 @@ namespace MegamanTheHedgehog
             if (moverDireita)
             {
                 imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left - 20, imgObstaculoUp.Margin.Top, 0, 0);
-                imgBackground1.Margin = new Thickness(imgBackground1.Margin.Left - 20, 0, 0, 0);
-                imgBackground2.Margin = new Thickness(imgBackground2.Margin.Left - 20, 0, 0, 0);
                 imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left + 30, imgPersonagem.Margin.Top, 0, 0);
-                if (imgBackground1.Margin.Left <= -imgBackground1.Width)
-                    imgBackground1.Margin = new Thickness(imgBackground1.Width - 80, 0, 0, 0);
-                if (imgBackground2.Margin.Left <= -imgBackground2.Width)
-                    imgBackground2.Margin = new Thickness(imgBackground2.Width - 80, 0, 0, 0);
+
+                background.MoverParaEsquerda();
+
                 if (imgPersonagem.Margin.Left >= this.Width - 50)
                 {
                     imgPersonagem.Margin = new Thickness(0, imgPersonagem.Margin.Top, 0, 0);
                 }
+
                 BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (imagemAtualIndex) + ".png", UriKind.RelativeOrAbsolute));
                 imgPersonagem.Source = img;
                 imagemAtualIndex = (imagemAtualIndex + 1) % 9;
@@ -122,17 +115,13 @@ namespace MegamanTheHedgehog
             {
                 imgObstaculoUp.Margin = new Thickness(imgObstaculoUp.Margin.Left + 20, imgObstaculoUp.Margin.Top, 0, 0);
                 imgPersonagem.Margin = new Thickness(imgPersonagem.Margin.Left - 30, imgPersonagem.Margin.Top, 0, 0);
-                imgBackground1.Margin = new Thickness(imgBackground1.Margin.Left + 20, 0, 0, 0);
-                imgBackground2.Margin = new Thickness(imgBackground2.Margin.Left + 20, 0, 0, 0);
+
+                background.MoverParaDireita();
 
                 if (imgPersonagem.Margin.Left <= -imgPersonagem.Width + 80)
                 {
                     imgPersonagem.Margin = new Thickness(this.Width, imgPersonagem.Margin.Top, 0, 0);
                 }
-                if (imgBackground1.Margin.Left >= imgBackground1.Width)
-                    imgBackground1.Margin = new Thickness(-imgBackground1.Width + 80, 0, 0, 0);
-                if (imgBackground2.Margin.Left >= imgBackground2.Width)
-                    imgBackground2.Margin = new Thickness(-imgBackground2.Width + 80, 0, 0, 0);
 
                 BitmapImage img = new BitmapImage(new Uri("Imagens/andando" + (imagemAtualIndex) + ".png", UriKind.RelativeOrAbsolute));
                 imgPersonagem.Source = img;
@@ -192,8 +181,6 @@ namespace MegamanTheHedgehog
                     FinalizarJogo();
                 }
             }
-
-
         }
 
         void FinalizarJogo()
