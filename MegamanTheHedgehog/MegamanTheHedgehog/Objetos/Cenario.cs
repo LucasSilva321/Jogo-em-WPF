@@ -8,18 +8,20 @@ using System.Windows.Controls;
 
 namespace MegamanTheHedgehog.Objetos
 {
-    public class Background
+    public class Cenario
     {
         Image imagemDireita, imagemEsquerda;
+        public double Largura { get; set; }
 
-        public Background(Image imagemDireita, Image imagemEsquerda, double larguraJanela)
+        public Cenario(Image imagemDireita, Image imagemEsquerda, double largura)
         {
             this.imagemDireita = imagemDireita;
             this.imagemEsquerda = imagemEsquerda;
+            Largura = largura;
 
-            imagemEsquerda.Width = larguraJanela;
+            imagemEsquerda.Width = largura;
             imagemEsquerda.Margin = new Thickness(0, 0, 0, 0);
-            imagemDireita.Width = larguraJanela;
+            imagemDireita.Width = largura;
             imagemDireita.Margin = new Thickness(-imagemDireita.Width, 0, 0, 0);
         }
 

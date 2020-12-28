@@ -103,11 +103,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Objetos\Background.cs" />
+    <Compile Include="Objetos\Cenario.cs" />
+    <Compile Include="Objetos\Fase.cs" />
     <Compile Include="Objetos\Obstaculo.cs" />
     <Compile Include="Objetos\ObstaculoDireita.cs" />
     <Compile Include="Objetos\ObstaculoEsquerda.cs" />
-    <Compile Include="Objetos\ObstaculosPrimeiraFase.cs" />
+    <Compile Include="Objetos\ObstaculosFase.cs" />
     <Compile Include="Objetos\ObstaculoTopo.cs" />
     <Compile Include="Objetos\Personagem.cs" />
     <Compile Include="Objetos\Placar.cs" />
