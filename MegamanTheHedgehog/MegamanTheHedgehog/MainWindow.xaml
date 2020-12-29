@@ -16,8 +16,7 @@
         </EventTrigger>
     </Window.Triggers>
     <Grid>
-        <Image x:Name="imgBackgroundEsquerda" HorizontalAlignment="Left" Height="667" VerticalAlignment="Top" Width="992" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill" Margin="-997,0,0,0"/>
-        <Image x:Name="imgBackgroundDireita" HorizontalAlignment="Left" Height="667" VerticalAlignment="Top" Width="992" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill"/>
+        <Image x:Name="imgCenario" HorizontalAlignment="Left" Height="667" VerticalAlignment="Top" Width="992" Source="Imagens/7a993407591e2df39b547fefdd1335fb5795b24e_hq.jpg" Stretch="Fill"/>
         <Image x:Name="imgPersonagem"  HorizontalAlignment="Left" Height="130" Margin="355,438,0,0" VerticalAlignment="Top" Width="130" Source="Imagens/parado.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False">
             <Image.RenderTransform>
                 <TransformGroup>

@@ -23,7 +23,7 @@ namespace MegamanTheHedgehog
 
             var obstaculos = new ObstaculosFase(imgObstaculoUp, imgObstaculoRight, imgObstaculoLeft);
             var placar = new Placar(btnIniciar, lblScore, lblRecord, lblFimDeJogo);
-            var cenario = new Cenario(imgBackgroundDireita, imgBackgroundEsquerda, Width);
+            var cenario = new Cenario(imgCenario, Width);
 
             personagem = new Personagem(imgPersonagem);
             fase = new Fase(personagem, obstaculos, placar, cenario);

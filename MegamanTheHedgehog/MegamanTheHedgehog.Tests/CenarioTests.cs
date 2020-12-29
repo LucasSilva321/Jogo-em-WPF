@@ -15,9 +15,7 @@ namespace MegamanTheHedgehog.Tests
         [TestInitialize]
         public void Setup()
         {
-            var imageDireita = new Image();
-            var imagemEsquerda = new Image();
-            cenario = new Cenario(imageDireita, imagemEsquerda, largura);
+            cenario = new Cenario(new Image(), largura);
         }
 
         [TestMethod]
