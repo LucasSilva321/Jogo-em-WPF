@@ -12,6 +12,7 @@ namespace MegamanTheHedgehog.Objetos
     {
         Image imagemDireita, imagemEsquerda;
         public double Largura { get; set; }
+        public double Centro => imagemEsquerda.Margin.Left + Largura;
 
         public Cenario(Image imagemDireita, Image imagemEsquerda, double largura)
         {
@@ -20,31 +21,33 @@ namespace MegamanTheHedgehog.Objetos
             Largura = largura;
 
             imagemEsquerda.Width = largura;
-            imagemEsquerda.Margin = new Thickness(0, 0, 0, 0);
             imagemDireita.Width = largura;
-            imagemDireita.Margin = new Thickness(-imagemDireita.Width, 0, 0, 0);
+
+            AlinharImagens();
         }
 
-        public void DeslocarParaDireita()
+        public void DeslocarParaDireita(double deslocamento)
         {
-            imagemEsquerda.Margin = new Thickness(imagemEsquerda.Margin.Left + 20, 0, 0, 0);
-            imagemDireita.Margin = new Thickness(imagemDireita.Margin.Left + 20, 0, 0, 0);
+            imagemEsquerda.Margin = new Thickness(imagemEsquerda.Margin.Left + deslocamento, 0, 0, 0);
+            imagemDireita.Margin = new Thickness(imagemDireita.Margin.Left + deslocamento, 0, 0, 0);
 
-            if (imagemEsquerda.Margin.Left >= imagemEsquerda.Width)
-                imagemEsquerda.Margin = new Thickness(-imagemEsquerda.Width + 80, 0, 0, 0);
-            if (imagemDireita.Margin.Left >= imagemDireita.Width)
-                imagemDireita.Margin = new Thickness(-imagemDireita.Width + 80, 0, 0, 0);
+            if (Centro >= (2 *Largura))
+                AlinharImagens();
         }
 
-        internal void DeslocarParaEsquerda()
+        public void DeslocarParaEsquerda(double deslocamento)
         {
-            imagemEsquerda.Margin = new Thickness(imagemEsquerda.Margin.Left - 20, 0, 0, 0);
-            imagemDireita.Margin = new Thickness(imagemDireita.Margin.Left - 20, 0, 0, 0);
+            imagemEsquerda.Margin = new Thickness(imagemEsquerda.Margin.Left - deslocamento, 0, 0, 0);
+            imagemDireita.Margin = new Thickness(imagemDireita.Margin.Left - deslocamento, 0, 0, 0);
 
-            if (imagemEsquerda.Margin.Left <= -imagemEsquerda.Width)
-                imagemEsquerda.Margin = new Thickness(imagemEsquerda.Width - 80, 0, 0, 0);
-            if (imagemDireita.Margin.Left <= -imagemDireita.Width)
-                imagemDireita.Margin = new Thickness(imagemDireita.Width - 80, 0, 0, 0);
+            if (Centro <= Largura)
+                AlinharImagens();
+        }
+
+        void AlinharImagens()
+        {
+            imagemEsquerda.Margin = new Thickness(Largura / 2, 0, 0, 0);
+            imagemDireita.Margin = new Thickness(-Largura / 2, 0, 0, 0);
         }
     }
 }

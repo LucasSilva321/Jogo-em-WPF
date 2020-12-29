@@ -20,6 +20,7 @@ namespace MegamanTheHedgehog.Objetos
         SoundPlayer somdeFundo;
 
         Acao acao;
+        double deslocamentoHorizontal;
 
         public Fase(Personagem personagem, ObstaculosFase obstaculos, Placar placar, Cenario cenario)
         {
@@ -27,6 +28,8 @@ namespace MegamanTheHedgehog.Objetos
             this.obstaculos = obstaculos;
             this.placar = placar;
             this.cenario = cenario;
+
+            deslocamentoHorizontal = cenario.Largura / 32;
 
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
@@ -71,13 +74,13 @@ namespace MegamanTheHedgehog.Objetos
             {
                 personagem.MoverParaDireita(cenario.Largura);
                 obstaculos.Topo.DeslocarParaEsqueda();
-                cenario.DeslocarParaEsquerda();
+                cenario.DeslocarParaEsquerda(deslocamentoHorizontal);
             }
             else if (personagem.MoverEsquerda)
             {
                 personagem.MoverParaEsquerda(cenario.Largura);
                 obstaculos.Topo.DeslocarParaDireita();
-                cenario.DeslocarParaDireita();
+                cenario.DeslocarParaDireita(deslocamentoHorizontal);
             }
 
             if (!personagem.Pulando)
