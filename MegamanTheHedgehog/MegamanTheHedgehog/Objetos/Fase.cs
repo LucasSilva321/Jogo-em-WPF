@@ -21,6 +21,7 @@ namespace MegamanTheHedgehog.Objetos
 
         Acao acao;
         double deslocamentoHorizontal;
+        int incrementoPontuacao = 100;
 
         public Fase(Personagem personagem, ObstaculosFase obstaculos, Placar placar, Cenario cenario)
         {
@@ -41,7 +42,7 @@ namespace MegamanTheHedgehog.Objetos
 
         public void Iniciar()
         {
-            placar.ReiniciarPontuação();
+            placar.Iniciar();
             personagem.ReiniciarPosicao(cenario.Largura);
             obstaculos.ReiniciarPosicoes();
 
@@ -119,7 +120,7 @@ namespace MegamanTheHedgehog.Objetos
             if (movimento == Movimento.Finalizado)
             {
                 AtualizarAcaoDoObstaculo();
-                placar.MarcarPontuacao();
+                placar.MarcarPontuacao(incrementoPontuacao);
             }
         }
 

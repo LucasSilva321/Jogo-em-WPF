@@ -59,8 +59,8 @@
             </Button.Background>
         </Button>
         <Label x:Name="lblFimDeJogo" Content="Label" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" FontSize="50" Width="984" Foreground="White" FontWeight="SemiBold" HorizontalContentAlignment="Center" FontStyle="Italic"/>
-        <Label x:Name="lblScore" Content="Score:" HorizontalAlignment="Left" Margin="246,14,0,0" VerticalAlignment="Top" FontSize="38" Width="323" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
-        <Label x:Name="lblRecord" Content="Record:" HorizontalAlignment="Left" Margin="573,14,0,0" VerticalAlignment="Top" FontSize="38" Width="399" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
+        <Label x:Name="lblPontuacao" Content="Pontuação:" HorizontalAlignment="Left" Margin="246,14,0,0" VerticalAlignment="Top" FontSize="38" Width="323" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
+        <Label x:Name="lblRecorde" Content="Recorde:" HorizontalAlignment="Left" Margin="573,14,0,0" VerticalAlignment="Top" FontSize="38" Width="399" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
 
     </Grid>
 </Window>

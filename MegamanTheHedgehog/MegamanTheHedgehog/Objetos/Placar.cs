@@ -10,53 +10,70 @@ namespace MegamanTheHedgehog.Objetos
 {
     public class Placar
     {
-        int pontuacao = 0, recorde = 0;
         bool novoRecorde;
 
         Button btnIniciar;
-        Label lblScore, lblRecord, lblFimDeJogo;
+        Label lblPontuacao, lblRecorde, lblFimDeJogo;
 
-        public Placar(Button btnIniciar, Label lblScore, Label lblRecord, Label lblFimDeJogo)
+        public bool BotaoIniciarVisivel => btnIniciar.Visibility == Visibility.Visible;
+        public bool TextoPontuacaoVisivel => lblPontuacao.Visibility == Visibility.Visible;
+        public bool TextoRecordeVisivel=> lblRecorde.Visibility == Visibility.Visible;
+        public bool TextoFimDeJogoVisivel => lblFimDeJogo.Visibility == Visibility.Visible;
+
+        public int Pontuacao { get; private set; }
+        public int Recorde { get; private set; }
+
+        public string TextoPontuacao => "Pontuação: " + Pontuacao;
+        public string TextoRecorde => "Recorde: " + Recorde;
+        public string TextoFimDeJogo
+        {
+            get
+            {
+                if (novoRecorde)
+                    return "Novo Recorde: " + Recorde;
+                else
+                    return "Pontuação: " + Pontuacao;
+            }
+        }
+
+        public Placar(Button btnIniciar, Label lblPontuacao, Label lblRecorde, Label lblFimDeJogo)
         {
             this.btnIniciar = btnIniciar;
-            this.lblScore = lblScore;
-            this.lblRecord = lblRecord;
+            this.lblPontuacao = lblPontuacao;
+            this.lblRecorde = lblRecorde;
             this.lblFimDeJogo = lblFimDeJogo;
 
             this.lblFimDeJogo.Visibility = Visibility.Hidden;
         }
 
-        public void ReiniciarPontuação()
+        public void Iniciar()
         {
             novoRecorde = false;
-            pontuacao = 0;
-            lblRecord.Content = "Record: " + recorde;
-            lblScore.Content = "Score: 0";
+            Pontuacao = 0;
+            lblRecorde.Content = TextoRecorde;
+            lblPontuacao.Content = TextoPontuacao;
             lblFimDeJogo.Visibility = Visibility.Hidden;
             btnIniciar.Visibility = Visibility.Hidden;
         }
 
         public void Finalizar()
         {
-            if (novoRecorde)
-                lblFimDeJogo.Content = "New Record: " + recorde;
-            else
-                lblFimDeJogo.Content = "Score: " + pontuacao;
+            lblFimDeJogo.Content = TextoFimDeJogo;
 
             lblFimDeJogo.Visibility = Visibility.Visible;
             btnIniciar.Visibility = Visibility.Visible;
         }
 
-        public void MarcarPontuacao()
+        public void MarcarPontuacao(int pontos)
         {
-            pontuacao += 100;
-            if (recorde <= pontuacao)
+            Pontuacao += pontos;
+            if (Recorde <= Pontuacao)
             {
                 novoRecorde = true;
-                recorde = pontuacao;
+                Recorde = Pontuacao;
             }
-            lblRecord.Content = "Record: " + recorde;
-            lblScore.Content = "Score: " + pontuacao;
+            lblRecorde.Content = TextoRecorde;
+            lblPontuacao.Content = TextoPontuacao;
         }
     }
 }

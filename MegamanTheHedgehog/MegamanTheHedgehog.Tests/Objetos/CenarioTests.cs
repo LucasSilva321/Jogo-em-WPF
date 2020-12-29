@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Windows.Controls;
 
-namespace MegamanTheHedgehog.Tests
+namespace MegamanTheHedgehog.Tests.Objetos
 {
     [TestClass]
     public class CenarioTests
