@@ -11,20 +11,23 @@ namespace MegamanTheHedgehog.Objetos
 {
     public class ObstaculoEsquerda : Obstaculo
     {
-        public ObstaculoEsquerda(Image imagem) : base(imagem)
+        public ObstaculoEsquerda(Image imagem, double larguraJanela) : base(imagem)
         {
+            PosicaoInicial = new Thickness(-imagem.Width, imagem.Margin.Top, larguraJanela, imagem.Margin.Bottom);
+            Imagem.Margin = PosicaoInicial;
         }
 
-        public Movimento MoverHorizontalmente(double deslocamento, double larguraJanela)
+        public Movimento MoverHorizontalmente(double deslocamento)
         {
-            if (Imagem.Margin.Left >= larguraJanela)
+            Imagem.Margin = new Thickness(Imagem.Margin.Left + deslocamento, Imagem.Margin.Top, 0, 0);
+
+            if (Imagem.Margin.Left >= PosicaoInicial.Right)
             {
                 ReiniciarPosicao();
                 return Movimento.Finalizado;
             }
             else
             {
-                Imagem.Margin = new Thickness(Imagem.Margin.Left + deslocamento, Imagem.Margin.Top, 0, 0);
                 return Movimento.EmAndamento;
             }
         }

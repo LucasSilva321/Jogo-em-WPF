@@ -11,7 +11,7 @@ namespace MegamanTheHedgehog.Objetos
 {
     public abstract class Obstaculo
     {
-        protected Thickness PosicaoInicial { get; }
+        protected Thickness PosicaoInicial { get; set; }
         protected Image Imagem { get; }
 
         public double MargemEsquerda => Imagem.Margin.Left;

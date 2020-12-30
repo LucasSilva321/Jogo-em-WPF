@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using MegamanTheHedgehog.Enumeradores;
 using MegamanTheHedgehog.Objetos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -23,8 +24,11 @@ namespace MegamanTheHedgehog.Tests.Objetos
         [TestMethod]
         public void ObstaculoTopo_MoverVerticalmente_TopoDeslocado()
         {
-            obstaculo.MoverVerticalmente(deslocamento, alturaELargura, alturaELargura);
+            var movimentoEsperado = Movimento.EmAndamento;
 
+            var movimento =  obstaculo.MoverVerticalmente(deslocamento, alturaELargura, alturaELargura);
+
+            Assert.AreEqual(movimentoEsperado, movimento);
             Assert.AreEqual(deslocamento, obstaculo.MargemTopo);
         }
 

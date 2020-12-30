@@ -21,7 +21,7 @@ namespace MegamanTheHedgehog
         {
             InitializeComponent();
 
-            var obstaculos = new ObstaculosFase(imgObstaculoUp, imgObstaculoRight, imgObstaculoLeft);
+            var obstaculos = new ObstaculosFase(imgObstaculoUp, imgObstaculoRight, imgObstaculoLeft, Width);
             var placar = new Placar(btnIniciar, lblPontuacao, lblRecorde, lblFimDeJogo);
             var cenario = new Cenario(imgCenario, Width, Height);
 

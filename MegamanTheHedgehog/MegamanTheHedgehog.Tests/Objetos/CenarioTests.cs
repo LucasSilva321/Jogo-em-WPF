@@ -20,7 +20,7 @@ namespace MegamanTheHedgehog.Tests.Objetos
         }
 
         [TestMethod]
-        public void Cenario_DeslocamentoParaDireitaInferiorAoLimite_Deslocar()
+        public void Cenario_DeslocamentoParaDireitaInferiorAoLimite_CenarioDeslocado()
         {
             var deslocamento = largura / 32;
             var centroEsperado = cenario.Centro + deslocamento;
@@ -31,7 +31,7 @@ namespace MegamanTheHedgehog.Tests.Objetos
         }
 
         [TestMethod]
-        public void Cenario_DeslocamentoParaEsquerdaInferiorAoLimite_Deslocar()
+        public void Cenario_DeslocamentoParaEsquerdaInferiorAoLimite_CenarioDeslocado()
         {
             var deslocamento = largura / 32;
             var centroEsperado = cenario.Centro - deslocamento;
@@ -42,7 +42,7 @@ namespace MegamanTheHedgehog.Tests.Objetos
         }
 
         [TestMethod]
-        public void Cenario_DeslocamentoParaDireitaSuperiorAoLimite_Centralizar()
+        public void Cenario_DeslocamentoParaDireitaSuperiorAoLimite_CenarioCentralizado()
         {
             var deslocamento = largura * 2;
             var centroEsperado = cenario.Centro;
@@ -53,7 +53,7 @@ namespace MegamanTheHedgehog.Tests.Objetos
         }
 
         [TestMethod]
-        public void Cenario_DeslocamentoParaEsquerdaSuperiorAoLimite_Centralizar()
+        public void Cenario_DeslocamentoParaEsquerdaSuperiorAoLimite_CenarioCentralizado()
         {
             var deslocamento = largura * 2;
             var centroEsperado = cenario.Centro;

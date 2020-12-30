@@ -124,9 +124,9 @@ namespace MegamanTheHedgehog.Objetos
             if (acao == Acao.MoverObstaculoDoTopo)
                 movimento =  obstaculos.Topo.MoverVerticalmente(deslocamentoObstaculoVertical, cenario.Altura, cenario.Largura);
             else if (acao == Acao.MoverObstaculoDaDireita)
-                movimento = obstaculos.Direita.MoverHorizontalmente(deslocamentoObstaculoHorizontal, cenario.Largura);
+                movimento = obstaculos.Direita.MoverHorizontalmente(deslocamentoObstaculoHorizontal);
             else
-                movimento = obstaculos.Esquerda.MoverHorizontalmente(deslocamentoObstaculoHorizontal, cenario.Largura);
+                movimento = obstaculos.Esquerda.MoverHorizontalmente(deslocamentoObstaculoHorizontal);
 
             if (movimento == Movimento.Finalizado)
             {

@@ -15,11 +15,11 @@ namespace MegamanTheHedgehog.Objetos
         public ObstaculoDireita Direita { get; }
         public ObstaculoEsquerda Esquerda { get; }
 
-        public ObstaculosFase(Image topo, Image direita, Image esquerda)
+        public ObstaculosFase(Image topo, Image direita, Image esquerda, double larguraJanela)
         {
             Topo = new ObstaculoTopo(topo);
-            Direita = new ObstaculoDireita(direita);
-            Esquerda = new ObstaculoEsquerda(esquerda);
+            Direita = new ObstaculoDireita(direita, larguraJanela);
+            Esquerda = new ObstaculoEsquerda(esquerda, larguraJanela);
         }
 
         public void ReiniciarPosicoes()
