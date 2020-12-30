@@ -29,22 +29,6 @@ namespace MegamanTheHedgehog.Objetos
             Esquerda.ReiniciarPosicao();
         }
 
-        public Movimento Mover(Acao acao, double larguraJanela)
-        {
-            if (acao == Acao.MoverObstaculoDoTopo)
-            {
-                return Topo.Mover(larguraJanela);
-            }
-            else if (acao == Acao.MoverObstaculoDaDireita)
-            {
-                return Direita.Mover(larguraJanela);
-            }
-            else
-            {
-                return Esquerda.Mover(larguraJanela);
-            }
-        }
-
         public List<Obstaculo> ToList()
         {
             return new List<Obstaculo> { Direita, Esquerda, Topo };

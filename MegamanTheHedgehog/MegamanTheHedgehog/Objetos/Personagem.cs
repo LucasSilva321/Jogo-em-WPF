@@ -17,10 +17,10 @@ namespace MegamanTheHedgehog.Objetos
         double marginTopPersonagem, gravidade = -1.5;
         Image imagem;
 
-        public double Left => imagem.Margin.Left;
-        public double Right => Left + imagem.Width;
-        public double Top => imagem.Margin.Top;
-        public double Bottom => Top + imagem.Height;
+        public double MargemEsquerda => imagem.Margin.Left;
+        public double MargemDireita => MargemEsquerda + imagem.Width;
+        public double MargemTopo => imagem.Margin.Top;
+        public double MargemInferior => MargemTopo + imagem.Height;
 
         public bool Pulando { get; set; } = true;
 

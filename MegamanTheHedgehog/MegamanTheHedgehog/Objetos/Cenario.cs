@@ -11,13 +11,15 @@ namespace MegamanTheHedgehog.Objetos
     public class Cenario
     {
         Image imagem;
-        public double Largura { get; set; }
+        public double Largura { get; private set; }
+        public double Altura { get; private set; }
         public double Centro => imagem.Margin.Left + Largura;
 
-        public Cenario(Image imagem, double largura)
+        public Cenario(Image imagem, double largura, double altura)
         {
             this.imagem = imagem;
             Largura = largura;
+            Altura = altura;
 
             this.imagem.Width = largura * 2;
 

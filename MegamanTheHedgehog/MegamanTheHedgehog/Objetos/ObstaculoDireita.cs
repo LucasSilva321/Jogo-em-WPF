@@ -15,7 +15,7 @@ namespace MegamanTheHedgehog.Objetos
         {
         }
 
-        public override Movimento Mover(double larguraJanela)
+        public Movimento MoverHorizontalmente(double deslocamento, double larguraJanela)
         {
             if (Imagem.Margin.Left + Imagem.Width <= 0)
             {
@@ -24,7 +24,7 @@ namespace MegamanTheHedgehog.Objetos
             }
             else
             {
-                Imagem.Margin = new Thickness(Imagem.Margin.Left - 80, Imagem.Margin.Top, 0, 0);
+                Imagem.Margin = new Thickness(Imagem.Margin.Left - deslocamento, Imagem.Margin.Top, 0, 0);
                 return Movimento.EmAndamento;
             }
         }

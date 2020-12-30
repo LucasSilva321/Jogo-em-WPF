@@ -11,11 +11,12 @@ namespace MegamanTheHedgehog.Tests.Objetos
     {
         Cenario cenario;
         double largura = 1000;
-
+        
         [TestInitialize]
         public void Setup()
         {
-            cenario = new Cenario(new Image(), largura);
+            var altura = 500;
+            cenario = new Cenario(new Image(), largura, altura);
         }
 
         [TestMethod]

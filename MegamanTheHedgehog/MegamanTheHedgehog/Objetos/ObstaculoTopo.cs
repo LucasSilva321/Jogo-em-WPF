@@ -17,26 +17,33 @@ namespace MegamanTheHedgehog.Objetos
         {
         }
 
-        public override Movimento Mover(double larguraJanela)
+        public Movimento MoverVerticalmente(double deslocamento, double alturaJanela, double larguraJanela)
         {
             if (podePosicionarObstaculoTopo)
             {
                 double left = ObterPosicaoHorizontalAleatoria(larguraJanela);
-                Imagem.Margin = new Thickness(left, Imagem.Margin.Top, 0, 0);
                 podePosicionarObstaculoTopo = false;
             }
-            else
+
+            Imagem.Margin = new Thickness(Imagem.Margin.Left, Imagem.Margin.Top + deslocamento, 0, 0);
+            if (Imagem.Margin.Top > alturaJanela)
             {
-                Imagem.Margin = new Thickness(Imagem.Margin.Left, Imagem.Margin.Top + 40, 0, 0);
-                if (Imagem.Margin.Top > larguraJanela)
-                {
-                    ReiniciarPosicao();
-                    podePosicionarObstaculoTopo = true;
-                    return Movimento.Finalizado;
-                }
+                ReiniciarPosicao();
+                podePosicionarObstaculoTopo = true;
+                return Movimento.Finalizado;
             }
 
             return Movimento.EmAndamento;
+        }
+
+        public void DeslocarParaEsqueda(double deslocamento)
+        {
+            Imagem.Margin = new Thickness(Imagem.Margin.Left - deslocamento, Imagem.Margin.Top, 0, 0);
+        }
+
+        public void DeslocarParaDireita(double deslocamento)
+        {
+            Imagem.Margin = new Thickness(Imagem.Margin.Left + deslocamento, Imagem.Margin.Top, 0, 0);
         }
 
         private int ObterPosicaoHorizontalAleatoria(double larguraJanela)
@@ -44,16 +51,6 @@ namespace MegamanTheHedgehog.Objetos
             var random = new Random();
             var limiteHorizontal = (int)larguraJanela - (int)Imagem.Width;
             return random.Next(0, limiteHorizontal);
-        }
-
-        public void DeslocarParaEsqueda()
-        {
-            Imagem.Margin = new Thickness(Imagem.Margin.Left - 20, Imagem.Margin.Top, 0, 0);
-        }
-
-        public void DeslocarParaDireita()
-        {
-            Imagem.Margin = new Thickness(Imagem.Margin.Left + 20, Imagem.Margin.Top, 0, 0);
         }
 
     }

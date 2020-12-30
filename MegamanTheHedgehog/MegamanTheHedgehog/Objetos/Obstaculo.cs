@@ -14,10 +14,10 @@ namespace MegamanTheHedgehog.Objetos
         protected Thickness PosicaoInicial { get; }
         protected Image Imagem { get; }
 
-        public double Left => Imagem.Margin.Left;
-        public double Right => Left + Imagem.Width;
-        public double Top => Imagem.Margin.Top;
-        public double Bottom => Top + Imagem.Height;
+        public double MargemEsquerda => Imagem.Margin.Left;
+        public double MargemDireita => MargemEsquerda + Imagem.Width;
+        public double MargemTopo => Imagem.Margin.Top;
+        public double MargemInferior => MargemTopo + Imagem.Height;
 
         public Obstaculo(Image imagem)
         {
@@ -25,13 +25,11 @@ namespace MegamanTheHedgehog.Objetos
             PosicaoInicial = imagem.Margin;
         }
 
-        public abstract Movimento Mover(double larguraJanela);
-
         public bool TeveColisao(Personagem personagem)
         {
-            if (personagem.Top <= Bottom && personagem.Bottom >= Top)
+            if (personagem.MargemTopo <= MargemInferior && personagem.MargemInferior >= MargemTopo)
             {
-                if (personagem.Left <= Right && personagem.Right >= Left)
+                if (personagem.MargemEsquerda <= MargemDireita && personagem.MargemDireita >= MargemEsquerda)
                 {
                     return true;
                 }

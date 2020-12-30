@@ -20,7 +20,9 @@ namespace MegamanTheHedgehog.Objetos
         SoundPlayer somdeFundo;
 
         Acao acao;
-        double deslocamentoHorizontal;
+        double deslocamentoCenarioHorizontal;
+        double deslocamentoObstaculoHorizontal;
+        double deslocamentoObstaculoVertical;
         int incrementoPontuacao = 100;
 
         public Fase(Personagem personagem, ObstaculosFase obstaculos, Placar placar, Cenario cenario)
@@ -30,7 +32,9 @@ namespace MegamanTheHedgehog.Objetos
             this.placar = placar;
             this.cenario = cenario;
 
-            deslocamentoHorizontal = cenario.Largura / 32;
+            deslocamentoCenarioHorizontal = cenario.Largura / 32;
+            deslocamentoObstaculoHorizontal = cenario.Largura / 12;
+            deslocamentoObstaculoVertical = cenario.Largura / 16;
 
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
@@ -74,14 +78,14 @@ namespace MegamanTheHedgehog.Objetos
             if (personagem.MoverDireita)
             {
                 personagem.MoverParaDireita(cenario.Largura);
-                obstaculos.Topo.DeslocarParaEsqueda();
-                cenario.DeslocarParaEsquerda(deslocamentoHorizontal);
+                obstaculos.Topo.DeslocarParaEsqueda(deslocamentoObstaculoVertical);
+                cenario.DeslocarParaEsquerda(deslocamentoCenarioHorizontal);
             }
             else if (personagem.MoverEsquerda)
             {
                 personagem.MoverParaEsquerda(cenario.Largura);
-                obstaculos.Topo.DeslocarParaDireita();
-                cenario.DeslocarParaDireita(deslocamentoHorizontal);
+                obstaculos.Topo.DeslocarParaDireita(deslocamentoObstaculoVertical);
+                cenario.DeslocarParaDireita(deslocamentoCenarioHorizontal);
             }
 
             if (!personagem.Pulando)
@@ -115,7 +119,14 @@ namespace MegamanTheHedgehog.Objetos
 
         void MoverObstaculo()
         {
-            var movimento = obstaculos.Mover(acao, cenario.Largura);
+            Movimento movimento;
+
+            if (acao == Acao.MoverObstaculoDoTopo)
+                movimento =  obstaculos.Topo.MoverVerticalmente(deslocamentoObstaculoVertical, cenario.Altura, cenario.Largura);
+            else if (acao == Acao.MoverObstaculoDaDireita)
+                movimento = obstaculos.Direita.MoverHorizontalmente(deslocamentoObstaculoHorizontal, cenario.Largura);
+            else
+                movimento = obstaculos.Esquerda.MoverHorizontalmente(deslocamentoObstaculoHorizontal, cenario.Largura);
 
             if (movimento == Movimento.Finalizado)
             {
