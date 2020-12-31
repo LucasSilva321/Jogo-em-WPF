@@ -20,6 +20,7 @@ namespace MegamanTheHedgehog.Objetos
         SoundPlayer somdeFundo;
 
         Acao acao;
+        double deslocamentoPersonagemHorizontal;
         double deslocamentoCenarioHorizontal;
         double deslocamentoObstaculoHorizontal;
         double deslocamentoObstaculoVertical;
@@ -32,6 +33,7 @@ namespace MegamanTheHedgehog.Objetos
             this.placar = placar;
             this.cenario = cenario;
 
+            deslocamentoPersonagemHorizontal = cenario.Largura / 32;
             deslocamentoCenarioHorizontal = cenario.Largura / 32;
             deslocamentoObstaculoHorizontal = cenario.Largura / 12;
             deslocamentoObstaculoVertical = cenario.Largura / 16;
@@ -73,17 +75,17 @@ namespace MegamanTheHedgehog.Objetos
             }
         }
 
-        void MoverPersonagem()
+        private void MoverPersonagem()
         {
-            if (personagem.MoverDireita)
+            if (personagem.Direcao == Direcao.Direita)
             {
-                personagem.MoverParaDireita(cenario.Largura);
+                personagem.MoverParaDireita(deslocamentoPersonagemHorizontal, cenario.Largura);
                 obstaculos.Topo.DeslocarParaEsqueda(deslocamentoObstaculoVertical);
                 cenario.DeslocarParaEsquerda(deslocamentoCenarioHorizontal);
             }
-            else if (personagem.MoverEsquerda)
+            else if (personagem.Direcao == Direcao.Esquerda)
             {
-                personagem.MoverParaEsquerda(cenario.Largura);
+                personagem.MoverParaEsquerda(deslocamentoPersonagemHorizontal, cenario.Largura);
                 obstaculos.Topo.DeslocarParaDireita(deslocamentoObstaculoVertical);
                 cenario.DeslocarParaDireita(deslocamentoCenarioHorizontal);
             }
@@ -101,7 +103,7 @@ namespace MegamanTheHedgehog.Objetos
             MoverObstaculo();
         }
 
-        void VerificarColisao()
+        private void VerificarColisao()
         {
             if (personagem.TeveColisao(obstaculos.ToList()))
             {
@@ -109,15 +111,14 @@ namespace MegamanTheHedgehog.Objetos
             }
         }
 
-        void Finalizar()
+        private void Finalizar()
         {
-            personagem.Parar();
             timer.Stop();
             placar.Finalizar();
             somdeFundo.Stop();
         }
 
-        void MoverObstaculo()
+        private void MoverObstaculo()
         {
             Movimento movimento;
 

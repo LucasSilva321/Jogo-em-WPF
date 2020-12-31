@@ -71,6 +71,7 @@
     <Compile Include="Objetos\ObstaculoDireitaTests.cs" />
     <Compile Include="Objetos\ObstaculoEsquerdaTests.cs" />
     <Compile Include="Objetos\ObstaculosFaseTests.cs" />
+    <Compile Include="Objetos\PersonagemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objetos\PlacarTests.cs" />
   </ItemGroup>

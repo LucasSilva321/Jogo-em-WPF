@@ -38,16 +38,16 @@ namespace MegamanTheHedgehog
         {
             if (e.Key == Key.Right)
             {
-                personagem.DefinirDirecao(Direcao.Direita);
+                personagem.Direcionar(Direcao.Direita);
             }
             if (e.Key == Key.Left)
             {
-                personagem.DefinirDirecao(Direcao.Esquerda);
+                personagem.Direcionar(Direcao.Esquerda);
             }
 
             if (e.Key == Key.Up && personagem.Pulando)
             {
-                personagem.DefinirDirecao(Direcao.Vertical);
+                personagem.Direcionar(Direcao.Vertical);
             }
         }
 

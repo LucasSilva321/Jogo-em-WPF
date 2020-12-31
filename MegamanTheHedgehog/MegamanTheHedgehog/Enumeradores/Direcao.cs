@@ -10,6 +10,7 @@ namespace MegamanTheHedgehog.Enumeradores
     {
         Direita,
         Esquerda,
-        Vertical
+        Vertical,
+        Parado
     }
 }
